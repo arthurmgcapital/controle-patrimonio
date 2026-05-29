@@ -237,6 +237,35 @@ body.cargo-atendente .col-valor{display:none!important}
 .rel-linha .rel-bar{flex:1;height:8px;background:#ece9df;border-radius:99px;overflow:hidden;max-width:140px}
 .rel-linha .rel-bar div{height:100%;background:linear-gradient(90deg,#F2B705,#d9a400);border-radius:99px;transition:width .8s cubic-bezier(.34,1.56,.64,1)}
 .rel-vazia{padding:14px;text-align:center;color:#a6a49b;font-style:italic;font-size:13px;background:#faf9f5;border-radius:11px}
+/* ===== AUDITORIA ===== */
+.aud-banner{background:linear-gradient(150deg,#fff7d6,#fef8e3);border:1.5px solid #F2B705;border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.aud-banner .pulse{width:14px;height:14px;background:#F2B705;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 0 rgba(242,183,5,.5);animation:pulseAnim 1.8s infinite}
+@keyframes pulseAnim{0%{box-shadow:0 0 0 0 rgba(242,183,5,.5)}70%{box-shadow:0 0 0 14px rgba(242,183,5,0)}100%{box-shadow:0 0 0 0 rgba(242,183,5,0)}}
+.aud-banner .info{flex:1}
+.aud-banner .ti{font-weight:800;font-size:14.5px}.aud-banner .me{font-size:12px;color:#6b6a64;margin-top:2px}
+.aud-progresso{margin-top:14px}
+.aud-bar{height:10px;background:#ece9df;border-radius:99px;overflow:hidden}
+.aud-bar div{height:100%;background:linear-gradient(90deg,#27ae60,#2ecc71);border-radius:99px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.aud-stats{display:flex;gap:14px;margin-top:8px;font-size:11.5px;color:#6b6a64;font-variant-numeric:tabular-nums}
+.aud-stats b{color:#1c1c1a}
+.aud-item{display:flex;align-items:center;gap:14px;padding:12px 14px;background:#faf9f5;border:1.5px solid #ece9df;border-radius:11px;margin-bottom:7px;transition:all .2s}
+.aud-item:hover{border-color:#F2B705}
+.aud-item.checked{background:linear-gradient(150deg,#d5f5e3,#e8faec);border-color:#27ae60}
+.aud-item .check{width:24px;height:24px;border:2px solid #c5c3b9;border-radius:7px;flex-shrink:0;cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDQ0IDM0Ij48ZGVmcz48ZmlsdGVyIGlkPSJzIiB4PSItNTAlIiB5PSItNTAlIiB3aWR0aD0iMjAwJSIgaGVpZ2h0PSIyMDAlIj48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMSIgc3RkRGV2aWF0aW9uPSIxIiBmbG9vZC1vcGFjaXR5PSIwLjQiLz48L2ZpbHRlcj48L2RlZnM+PGcgZmlsdGVyPSJ1cmwoI3MpIj48cGF0aCBkPSJNMyAyIEwzIDE3IEw3IDE0IEw5LjUgMjAgTDEyIDE5IEw5LjUgMTMgTDE1IDEzIFoiIGZpbGw9IiMxNjE2MTYiIHN0cm9rZT0iI0YyQjcwNSIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMTgiIHk9IjI5IiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjRjJCNzA1IiBzdHJva2U9IiMxNjE2MTYiIHN0cm9rZS13aWR0aD0iMS40IiBwYWludC1vcmRlcj0ic3Ryb2tlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssQXJpYWwsc2Fucy1zZXJpZiI+TUc8L3RleHQ+PC9nPjwvc3ZnPg==") 3 2,pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;background:#fff}
+.aud-item.checked .check{background:#27ae60;border-color:#27ae60}
+.aud-item.checked .check::after{content:"";width:7px;height:13px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg);margin-bottom:3px}
+.aud-item .nome{flex:1;font-weight:700;font-size:13.5px}
+.aud-item .meta{font-size:11.5px;color:#9c9a92;margin-top:2px}
+.aud-his-card{background:#fff;border:1.5px solid #ece9df;border-radius:12px;padding:14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:center}
+.aud-his-card.aberta{border-color:#F2B705}
+.aud-his-data{font-weight:700;font-size:13.5px}
+.aud-his-meta{font-size:11.5px;color:#9c9a92;margin-top:2px}
+.aud-his-stat{text-align:center;min-width:80px}
+.aud-his-stat .n{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.aud-his-stat .lb{font-size:10px;color:#9c9a92;text-transform:uppercase;letter-spacing:.5px}
+.aud-his-stat.perda .n{color:#c0392b}
+.aud-his-stat.ok .n{color:#27ae60}
+.aud-his-tx{background:#161616;color:#F2B705;padding:8px 14px;border-radius:9px;font-weight:800;font-variant-numeric:tabular-nums}
 .assinatura{text-align:center;font-style:italic;font-size:12.5px;color:#9c9a92;padding:18px 0 6px;letter-spacing:.02em}
 .assinatura b{color:#7a7870;font-weight:600;font-style:italic}
 .loading{text-align:center;padding:50px;color:#9c9a92;font-size:14px}
@@ -333,6 +362,7 @@ body.cargo-atendente .col-valor{display:none!important}
     <button class="tabbtn" id="tab-historico" onclick="showTab('historico')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Hist&oacute;rico</span></button>
     <button class="tabbtn" id="tab-estoque" onclick="showTab('estoque')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><span>Estoque</span></button>
     <button class="tabbtn" id="tab-emails" onclick="showTab('emails')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 5L2 7"/></svg></span><span>Logins</span></button>
+    <button class="tabbtn" id="tab-auditoria" onclick="showTab('auditoria')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span>Auditoria</span></button>
     <button class="tabbtn" id="tab-relatorios" onclick="showTab('relatorios')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/></svg></span><span>Relat&oacute;rios</span></button>
     <button class="tabbtn" id="tab-usuarios" onclick="showTab('usuarios')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M22 11l-3-3-3 3"/><path d="M19 8v5"/></svg></span><span>Usu&aacute;rios</span></button>
     <button class="tabbtn" id="tab-ajustes" onclick="showTab('ajustes')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Ajustes</span></button>
@@ -508,6 +538,11 @@ body.cargo-atendente .col-valor{display:none!important}
       </div>
     </div>
 
+    <!-- AUDITORIA -->
+    <div class="pane" id="pane-auditoria">
+      <div id="auditoriaWrap"></div>
+    </div>
+
     <!-- RELATORIOS (s\u00f3 admin) -->
     <div class="pane" id="pane-relatorios">
       <div class="card"><div class="sec">Vis&atilde;o geral financeira</div><div class="secsub">resumo do patrim&ocirc;nio total &middot; somente administradores veem essa tela</div>
@@ -573,7 +608,7 @@ function cargoSvg(cargo,tam,cor){
 // abas que cada cargo pode ver (vazio = vê todas)
 var PERM_ABAS={
   admin: null,  // tudo
-  supervisor: ["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","ajustes"],  // tudo menos usuarios e relatorios
+  supervisor: ["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","auditoria","ajustes"],  // tudo menos usuarios e relatorios
   atendente: ["painel","itens","historico","baias","vendedores"]  // só consulta
 };
 function cargoAtual(){return PERFIL?PERFIL.cargo:"atendente";}
@@ -768,6 +803,7 @@ async function carregarTudo(){
     await carregarEstoque();
     // carrega lista de todos os perfis (pra aba Usuarios)
     try{var pf=await sb.from("perfis").select("*").order("cargo");TODOS_PERFIS=pf.data||[];}catch(e){TODOS_PERFIS=[];}
+    await carregarAuditoria();
     var novaConf={baias:[],categorias:[],status:[],equipes:[],valores_padrao:{}};
     (cf.data||[]).forEach(function(r){if(r&&r.chave)novaConf[r.chave]=r.valor||(r.chave==="valores_padrao"?{}:[]);});
     if(!novaConf.equipes||!novaConf.equipes.length)novaConf.equipes=["Athenas"];
@@ -820,7 +856,7 @@ function popularSelects(){
 }
 
 // ====== ABAS ======
-var ABAS=["painel","vendedores","baias","cadastrar","itens","mover","historico","estoque","emails","relatorios","usuarios","ajustes"];window.ATIVA="painel";
+var ABAS=["painel","vendedores","baias","cadastrar","itens","mover","historico","estoque","emails","auditoria","relatorios","usuarios","ajustes"];window.ATIVA="painel";
 function showTab(id){
   if(PERFIL&&!podeVer(id)){toast("Sem acesso a essa aba");return;}
   window.ATIVA=id;
@@ -924,7 +960,147 @@ function focarBaia(nome){
   var idx=CONFIG.baias.indexOf(nome);
   if(idx>=0&&cards[idx]){cards[idx].scrollIntoView({behavior:"smooth",block:"center"});cards[idx].classList.add("destacado");setTimeout(function(){if(cards[idx])cards[idx].classList.remove("destacado");},2400);}
 }
-function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();renderMapa();renderEmails();renderAjustes();renderPermAtendente();renderVendedores();renderEstoque();renderUsuarios();renderRelatorios();}
+function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();renderMapa();renderEmails();renderAjustes();renderPermAtendente();renderVendedores();renderEstoque();renderUsuarios();renderRelatorios();renderAuditoria();}
+
+// ===== AUDITORIA BIMESTRAL =====
+var AUDITORIA_ATIVA=null;        // {id,inicio,...} se tiver uma em andamento
+var AUDITORIA_ITENS=[];          // itens da auditoria ativa
+var AUDITORIAS_HIST=[];          // todas as auditorias passadas (finalizadas)
+async function carregarAuditoria(){
+  try{
+    var r=await sb.from("auditorias").select("*").order("inicio",{ascending:false});
+    if(r.error){AUDITORIA_ATIVA=null;AUDITORIAS_HIST=[];return;}
+    var lista=r.data||[];
+    // filtra por equipe (supervisor só vê da sua)
+    lista=lista.filter(function(a){return ehAdmin()||!equipeUsuario()||a.equipe===equipeUsuario();});
+    AUDITORIA_ATIVA=lista.find(function(a){return a.status==="em_andamento";})||null;
+    AUDITORIAS_HIST=lista.filter(function(a){return a.status==="finalizada";});
+    if(AUDITORIA_ATIVA){
+      var ri=await sb.from("auditoria_itens").select("*").eq("auditoria_id",AUDITORIA_ATIVA.id).order("codigo");
+      AUDITORIA_ITENS=ri.data||[];
+    }else AUDITORIA_ITENS=[];
+  }catch(e){AUDITORIA_ATIVA=null;AUDITORIA_ITENS=[];AUDITORIAS_HIST=[];}
+}
+function renderAuditoria(){
+  var w=document.getElementById("auditoriaWrap");if(!w)return;
+  if(!podeEditar()){w.innerHTML="<div class='card'><div class='lc-vazia'>Sem permiss\u00e3o</div></div>";return;}
+  var html="";
+  if(AUDITORIA_ATIVA){
+    var enc=AUDITORIA_ITENS.filter(function(x){return x.encontrado;}).length;
+    var tot=AUDITORIA_ITENS.length;
+    var pct=tot?Math.round(enc/tot*100):0;
+    var pend=tot-enc;
+    html+="<div class='card'><div class='aud-banner'>"+
+      "<div class='pulse'></div>"+
+      "<div class='info'><div class='ti'>Auditoria em andamento</div><div class='me'>Iniciada por <b>"+esc(AUDITORIA_ATIVA.por_quem_nome||"-")+"</b> em "+esc(fmtData(AUDITORIA_ATIVA.inicio))+(AUDITORIA_ATIVA.equipe?" &middot; Equipe <b>"+esc(AUDITORIA_ATIVA.equipe)+"</b>":"")+"</div></div>"+
+      "<button class='btn btn-x' onclick='cancelarAuditoria()'>Cancelar</button>"+
+      "<button class='btn btn-ouro' onclick='finalizarAuditoria()'>Finalizar</button>"+
+    "</div>"+
+    "<div class='aud-progresso'><div class='aud-bar'><div style='width:"+pct+"%'></div></div>"+
+      "<div class='aud-stats'><b>"+enc+"</b> encontrados &middot; <b>"+pend+"</b> pendentes &middot; <b>"+pct+"%</b> conclu\u00eddo</div></div>"+
+    "<div class='sec' style='margin:18px 0 6px'>Itens pra conferir</div><div class='secsub'>marque os itens que voc&ecirc; encontrou na vida real &middot; o resto vira <b>Perda</b> ao finalizar</div>"+
+    "<div class='busca-bar' style='margin-top:14px'><input type='text' id='auditoriaBusca' placeholder='Buscar item...' oninput='renderAuditoria()'></div>";
+    var q=(document.getElementById("auditoriaBusca")?document.getElementById("auditoriaBusca").value:"").toLowerCase().trim();
+    var lst=AUDITORIA_ITENS.filter(function(x){return !q||((x.codigo||"")+" "+(x.categoria||"")+" "+(x.baia||"")).toLowerCase().indexOf(q)>=0;});
+    html+="<div style='max-height:520px;overflow-y:auto'>"+lst.map(function(ai){
+      return "<div class='aud-item "+(ai.encontrado?"checked":"")+"' onclick=\"marcarAuditItem('"+ai.id+"')\">"+
+        "<div class='check'></div>"+
+        "<div style='flex:1'><div class='nome'>"+esc(ai.codigo)+"</div><div class='meta'>"+esc(ai.categoria||"-")+" &middot; "+esc(ai.baia||"-")+(ai.equipe?" &middot; "+esc(ai.equipe):"")+"</div></div>"+
+      "</div>";
+    }).join("")+"</div></div>";
+  }else{
+    var qtItens=ITENS.filter(function(i){return ehMinhaEquipe(i.equipe)&&i.status!=="Perda";}).length;
+    html+="<div class='card'><div class='sec'>Nova auditoria</div><div class='secsub'>conferir fisicamente todos os itens cadastrados &middot; os que n&atilde;o forem encontrados viram <b>Perda</b> automaticamente</div>"+
+    "<div class='note ico-dica' style='margin-top:14px'><b>Como funciona:</b> ao iniciar, o sistema lista <b>"+qtItens+" item(ns)</b>"+(ehAdmin()?" (todas as equipes)":" da sua equipe")+". Voc&ecirc; vai marcando os que estiverem presentes. Ao finalizar, os n&atilde;o marcados ganham status <b>Perda</b> e aparecem no relat\u00f3rio.</div>"+
+    "<button class='btn btn-ouro' style='margin-top:14px' onclick='iniciarAuditoria()'>Iniciar nova auditoria</button></div>";
+  }
+  // histórico de auditorias
+  html+="<div class='card'><div class='sec'>Hist\u00f3rico de auditorias</div><div class='secsub'>rodadas anteriores e taxa de perda</div>";
+  if(!AUDITORIAS_HIST.length)html+="<div class='rel-vazia' style='margin-top:10px'>Nenhuma auditoria finalizada ainda</div>";
+  else html+="<div style='margin-top:12px'>"+AUDITORIAS_HIST.map(function(a){
+    var tx=a.total_itens?Math.round(a.perdidos/a.total_itens*100):0;
+    return "<div class='aud-his-card'>"+
+      "<div><div class='aud-his-data'>"+esc(fmtData(a.fim||a.inicio))+"</div><div class='aud-his-meta'>por <b>"+esc(a.por_quem_nome||"-")+"</b>"+(a.equipe?" &middot; "+esc(a.equipe):"")+"</div></div>"+
+      "<div class='aud-his-stat ok'><div class='n'>"+a.encontrados+"</div><div class='lb'>encontrados</div></div>"+
+      "<div class='aud-his-stat perda'><div class='n'>"+a.perdidos+"</div><div class='lb'>perdas</div></div>"+
+      "<div class='aud-his-tx'>"+tx+"%</div>"+
+    "</div>";
+  }).join("")+"</div>";
+  html+="</div>";
+  w.innerHTML=html;
+}
+async function iniciarAuditoria(){
+  if(OCUPADO)return;
+  if(!podeEditar()){toast("Sem permiss\u00e3o");return;}
+  dlgConfirm("Iniciar uma nova auditoria?\n\nO sistema vai listar todos os itens"+(ehAdmin()?" de TODAS as equipes":" da sua equipe")+" pra voc\u00ea conferir.",async function(){
+    OCUPADO=true;
+    try{
+      var equipeAud=ehAdmin()?null:equipeUsuario();
+      var itensAud=ITENS.filter(function(i){
+        if(i.status==="Perda")return false;
+        return ehAdmin()||!equipeAud||i.equipe===equipeAud;
+      });
+      var aud={inicio:new Date().toISOString(),por_quem:USUARIO?USUARIO.id:null,por_quem_nome:nomeCurto(),equipe:equipeAud,total_itens:itensAud.length,status:"em_andamento"};
+      var r=await sb.from("auditorias").insert(aud).select().single();
+      if(tratarErro(r,"Erro ao iniciar auditoria"))return;
+      var audId=r.data.id;
+      // popula snapshot
+      var snap=itensAud.map(function(i){return {auditoria_id:audId,item_id:i.id,codigo:i.codigo,categoria:i.categoria,baia:i.baia,equipe:i.equipe,encontrado:false};});
+      if(snap.length){
+        var ri=await sb.from("auditoria_itens").insert(snap);
+        if(tratarErro(ri,"Erro ao listar itens"))return;
+      }
+      await carregarAuditoria();renderAuditoria();toast("Auditoria iniciada! Marque os itens encontrados");
+    }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
+  },{titulo:"Iniciar auditoria"});
+}
+async function marcarAuditItem(id){
+  if(OCUPADO)return;
+  var ai=AUDITORIA_ITENS.find(function(x){return x.id===id;});if(!ai)return;
+  var novo=!ai.encontrado;
+  ai.encontrado=novo;ai.marcado_em=new Date().toISOString();
+  renderAuditoria();
+  try{await sb.from("auditoria_itens").update({encontrado:novo,marcado_em:ai.marcado_em}).eq("id",id);}
+  catch(e){toast("Erro ao marcar");}
+}
+async function finalizarAuditoria(){
+  if(OCUPADO||!AUDITORIA_ATIVA)return;
+  var enc=AUDITORIA_ITENS.filter(function(x){return x.encontrado;}).length;
+  var pd=AUDITORIA_ITENS.length-enc;
+  dlgConfirm("Finalizar a auditoria?\n\n"+enc+" encontrado(s) e "+pd+" pendente(s) v\u00e3o virar PERDA.\n\nVoc\u00ea pode editar o status de cada item depois manualmente, se precisar.",async function(){
+    OCUPADO=true;
+    try{
+      // atualiza itens nao encontrados pra status="Perda"
+      var perdidos=AUDITORIA_ITENS.filter(function(x){return !x.encontrado&&x.item_id;});
+      for(var i=0;i<perdidos.length;i++){
+        var p=perdidos[i];
+        await sb.from("itens").update({status:"Perda"}).eq("id",p.item_id);
+        await sb.from("historico").insert(Object.assign({tipo:"mover",item_id:p.item_id,codigo:p.codigo,de_baia:p.baia,para_baia:p.baia,de_resp:"",para_resp:"",de_status:"",para_status:"Perda",obs:"marcado como perda na auditoria"},audit()));
+      }
+      // atualiza auditoria
+      var r=await sb.from("auditorias").update({status:"finalizada",fim:new Date().toISOString(),encontrados:enc,perdidos:pd}).eq("id",AUDITORIA_ATIVA.id);
+      if(tratarErro(r,"Erro ao finalizar"))return;
+      // garante que status "Perda" existe nas opcoes
+      if((CONFIG.status||[]).indexOf("Perda")<0){
+        CONFIG.status=(CONFIG.status||[]).concat(["Perda"]);
+        await sb.from("config").upsert({chave:"status",valor:CONFIG.status});
+      }
+      await carregarTudo();
+      toast("Auditoria finalizada! "+pd+" item(ns) marcados como Perda");
+    }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
+  },{titulo:"Finalizar auditoria",perigo:pd>0});
+}
+async function cancelarAuditoria(){
+  if(OCUPADO||!AUDITORIA_ATIVA)return;
+  dlgConfirm("Cancelar a auditoria atual?\n\nNenhum item vai virar Perda. A auditoria fica salva como cancelada.",async function(){
+    OCUPADO=true;
+    try{
+      var r=await sb.from("auditorias").update({status:"cancelada",fim:new Date().toISOString()}).eq("id",AUDITORIA_ATIVA.id);
+      if(tratarErro(r,"Erro ao cancelar"))return;
+      await carregarAuditoria();renderAuditoria();toast("Auditoria cancelada");
+    }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
+  },{titulo:"Cancelar auditoria",perigo:true,btnOk:"Sim, cancelar"});
+}
 
 // ===== RELATORIOS (somente admin) =====
 function brl(v){return "R$ "+(Number(v)||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -937,12 +1113,16 @@ function renderRelatorios(){
   var comValor=ITENS.filter(function(i){return i.valor!=null&&i.valor!=="";}).length;
   var maior=ITENS.reduce(function(a,b){return (Number(b.valor)||0)>(Number(a.valor)||0)?b:a;},{valor:0,codigo:"-"});
   var equipesAtivas=Object.keys(ITENS.reduce(function(o,i){if(i.equipe)o[i.equipe]=1;return o;},{}));
+  var perdas=ITENS.filter(function(i){return i.status==="Perda";}).length;
+  var taxaPerda=totItens?Math.round(perdas/totItens*100):0;
+  var valorPerdas=ITENS.filter(function(i){return i.status==="Perda";}).reduce(function(s,i){return s+(Number(i.valor)||0);},0);
   elKpi.innerHTML=[
     {l:"Total de itens",v:totItens,s:comValor+" com valor cadastrado"},
     {l:"Valor total em ativo",v:brl(valorTotal),s:"soma dos itens com valor"},
     {l:"Item mais caro",v:maior.codigo||"-",s:maior.valor?brl(maior.valor):"sem valor"},
-    {l:"Equipes ativas",v:equipesAtivas.length,s:equipesAtivas.join(", ")||"nenhuma"}
-  ].map(function(k){return "<div class='rel-kpi'><div class='rel-l'>"+k.l+"</div><div class='rel-v'>"+esc(String(k.v))+"</div><div class='rel-s'>"+esc(k.s)+"</div></div>";}).join("");
+    {l:"Equipes ativas",v:equipesAtivas.length,s:equipesAtivas.join(", ")||"nenhuma"},
+    {l:"Perdas registradas",v:perdas+" itens",s:"taxa de "+taxaPerda+"% &middot; "+brl(valorPerdas)+" perdidos"}
+  ].map(function(k){return "<div class='rel-kpi'><div class='rel-l'>"+k.l+"</div><div class='rel-v'>"+esc(String(k.v))+"</div><div class='rel-s'>"+k.s+"</div></div>";}).join("");
   // Por equipe
   var porEq={};
   ITENS.forEach(function(i){var e=i.equipe||"(sem equipe)";if(!porEq[e])porEq[e]={q:0,v:0};porEq[e].q++;porEq[e].v+=(Number(i.valor)||0);});
@@ -976,7 +1156,7 @@ function renderRelatorios(){
   }).join(""):"<div class='rel-vazia' style='color:#27ae60'>\u2713 Tudo em ordem &mdash; nenhum estoque baixo</div>";
 }
 
-var ABAS_ROTULOS={painel:"Painel",vendedores:"Vendedores",baias:"Baias",cadastrar:"Cadastrar",itens:"Itens",mover:"Movimentar",historico:"Hist\u00f3rico",estoque:"Estoque",emails:"Logins",relatorios:"Relat\u00f3rios",usuarios:"Usu\u00e1rios",ajustes:"Ajustes"};
+var ABAS_ROTULOS={painel:"Painel",vendedores:"Vendedores",baias:"Baias",cadastrar:"Cadastrar",itens:"Itens",mover:"Movimentar",historico:"Hist\u00f3rico",estoque:"Estoque",emails:"Logins",auditoria:"Auditoria",relatorios:"Relat\u00f3rios",usuarios:"Usu\u00e1rios",ajustes:"Ajustes"};
 function renderPermAtendente(){
   var el=document.getElementById("permAtendBody");if(!el)return;
   var perm=CONFIG.perm_atendente||["painel","itens","historico","baias","vendedores"];
