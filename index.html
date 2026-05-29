@@ -77,6 +77,9 @@ body.cargo-atendente .btn-x,
 body.cargo-atendente #btnAtualizar{display:none!important}
 body.cargo-atendente .b-avatar{cursor:default!important;pointer-events:none}
 body.cargo-atendente .dica-drag{display:none}
+/* ===== VALORES só pra ADMIN ===== */
+body.cargo-supervisor .col-valor,
+body.cargo-atendente .col-valor{display:none!important}
 .olho svg{width:18px;height:18px;display:block;transform-origin:center}
 .olho.blink svg{animation:piscar .4s ease}
 @keyframes piscar{0%{transform:scaleY(1)}40%{transform:scaleY(.08)}60%{transform:scaleY(.08)}100%{transform:scaleY(1)}}
@@ -182,6 +185,32 @@ body.cargo-atendente .dica-drag{display:none}
 .user-card .email{font-size:11.5px;color:#9c9a92;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .user-card .eu-tag{background:#F2B705;color:#000;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px;margin-left:6px}
 .user-card select{font-size:12.5px;padding:6px 10px;font-weight:600}
+.cb-admin,.cb-super,.cb-atend{width:36px;height:18px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.cb-admin{background:#F2B705}.cb-super{background:#3498db}.cb-atend{background:#95a5a6}
+.note.ico-dica,.dica-drag.ico-dica{display:flex;align-items:flex-start;gap:8px}
+.note.ico-dica::before,.dica-drag.ico-dica::before{content:"";flex-shrink:0;width:16px;height:16px;margin-top:2px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F2B705' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6'/><path d='M10 22h4'/><path d='M12 2a7 7 0 0 0-4 12.7c.6.6 1 1.4 1 2.3v1h6v-1c0-.9.4-1.7 1-2.3A7 7 0 0 0 12 2z'/></svg>") center/contain no-repeat}
+/* ===== LOGINS AGRUPADOS POR PESSOA ===== */
+.lg-lista{display:flex;flex-direction:column;gap:10px}
+.lg-pessoa{background:#fff;border:1.5px solid #ece9df;border-radius:14px;overflow:hidden;transition:all .25s}
+.lg-pessoa:hover{border-color:#F2B705;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.lg-pessoa.aberta{border-color:#F2B705;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.lg-pessoa-hdr{display:flex;align-items:center;gap:14px;padding:12px 16px;cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDQ0IDM0Ij48ZGVmcz48ZmlsdGVyIGlkPSJzIiB4PSItNTAlIiB5PSItNTAlIiB3aWR0aD0iMjAwJSIgaGVpZ2h0PSIyMDAlIj48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMSIgc3RkRGV2aWF0aW9uPSIxIiBmbG9vZC1vcGFjaXR5PSIwLjQiLz48L2ZpbHRlcj48L2RlZnM+PGcgZmlsdGVyPSJ1cmwoI3MpIj48cGF0aCBkPSJNMyAyIEwzIDE3IEw3IDE0IEw5LjUgMjAgTDEyIDE5IEw5LjUgMTMgTDE1IDEzIFoiIGZpbGw9IiMxNjE2MTYiIHN0cm9rZT0iI0YyQjcwNSIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMTgiIHk9IjI5IiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjRjJCNzA1IiBzdHJva2U9IiMxNjE2MTYiIHN0cm9rZS13aWR0aD0iMS40IiBwYWludC1vcmRlcj0ic3Ryb2tlIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssQXJpYWwsc2Fucy1zZXJpZiI+TUc8L3RleHQ+PC9nPjwvc3ZnPg==") 3 2,pointer;user-select:none}
+.lg-pessoa-hdr:hover{background:#faf9f5}
+.lg-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.lg-pessoa-info{flex:1;min-width:0}
+.lg-pessoa-nome{font-weight:700;font-size:14.5px;color:#1c1c1a}
+.lg-pessoa-meta{font-size:11.5px;color:#9c9a92;margin-top:1px}
+.lg-pessoa-seta{color:#a6a49b;flex-shrink:0}
+.lg-conteudo{display:none;border-top:1px solid #f0eee5;background:#fbfaf6}
+.lg-pessoa.aberta .lg-conteudo{display:block;animation:fade .3s ease both}
+.lg-linha{display:grid;grid-template-columns:130px 1fr 140px auto;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid #f0eee5;font-size:13px}
+.lg-linha:last-child{border-bottom:none}
+.lg-linha.edit{grid-template-columns:130px 1fr 140px auto auto;background:#fff8dd}
+.lg-linha input{padding:7px 10px;font-size:12.5px}
+.lg-eml{color:#5a5852;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg-sen{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#1c1c1a;letter-spacing:1.5px;display:flex;align-items:center;gap:6px}
+.lg-acts{display:flex;gap:2px;justify-content:flex-end}
+@media (max-width:680px){.lg-linha{grid-template-columns:1fr;gap:6px}}
 /* ===== PASSOS DIDÁTICOS (aba Movimentar) ===== */
 .passo-bloco{display:flex;align-items:center;gap:12px;margin:10px 0 12px;padding:10px 14px;background:linear-gradient(95deg,rgba(242,183,5,.10),rgba(242,183,5,.02));border-left:3px solid #F2B705;border-radius:0 9px 9px 0}
 .passo-num{width:30px;height:30px;border-radius:50%;background:#161616;color:#F2B705;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;box-shadow:0 3px 8px rgba(0,0,0,.15)}
@@ -280,16 +309,16 @@ body.cargo-atendente .dica-drag{display:none}
   </div>
   <div class="tabs">
     <button class="tabbtn on" id="tab-painel" onclick="showTab('painel')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span>Painel</span></button>
-    <button class="tabbtn" id="tab-itens" onclick="showTab('itens')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span><span>Itens</span></button>
+    <button class="tabbtn" id="tab-vendedores" onclick="showTab('vendedores')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Vendedores</span></button>
+    <button class="tabbtn" id="tab-baias" onclick="showTab('baias')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></span><span>Baias</span></button>
     <button class="tabbtn" id="tab-cadastrar" onclick="showTab('cadastrar')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span><span>Cadastrar</span></button>
+    <button class="tabbtn" id="tab-itens" onclick="showTab('itens')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span><span>Itens</span></button>
     <button class="tabbtn" id="tab-mover" onclick="showTab('mover')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span>Movimentar</span></button>
     <button class="tabbtn" id="tab-historico" onclick="showTab('historico')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Hist&oacute;rico</span></button>
-    <button class="tabbtn" id="tab-baias" onclick="showTab('baias')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></span><span>Baias</span></button>
-    <button class="tabbtn" id="tab-vendedores" onclick="showTab('vendedores')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Vendedores</span></button>
     <button class="tabbtn" id="tab-estoque" onclick="showTab('estoque')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><span>Estoque</span></button>
-    <button class="tabbtn" id="tab-emails" onclick="showTab('emails')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span><span>Logins</span></button>
-    <button class="tabbtn" id="tab-ajustes" onclick="showTab('ajustes')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Ajustes</span></button>
+    <button class="tabbtn" id="tab-emails" onclick="showTab('emails')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 5L2 7"/></svg></span><span>Logins</span></button>
     <button class="tabbtn" id="tab-usuarios" onclick="showTab('usuarios')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M22 11l-3-3-3 3"/><path d="M19 8v5"/></svg></span><span>Usu&aacute;rios</span></button>
+    <button class="tabbtn" id="tab-ajustes" onclick="showTab('ajustes')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Ajustes</span></button>
   </div>
 
   <div id="app">
@@ -313,7 +342,7 @@ body.cargo-atendente .dica-drag{display:none}
           <select id="fBaia" onchange="renderItens()"><option value="">Todas baias</option></select>
           <select id="fStatus" onchange="renderItens()"><option value="">Todos status</option></select>
         </div>
-        <div class="tbl-wrap"><table><thead><tr><th>C&oacute;digo</th><th>Categoria</th><th>Descri&ccedil;&atilde;o</th><th>Valor</th><th>Equipe</th><th>Baia</th><th>Respons&aacute;vel</th><th>Status</th><th>A&ccedil;&otilde;es</th></tr></thead><tbody id="itensBody"></tbody></table></div>
+        <div class="tbl-wrap"><table><thead><tr><th>C&oacute;digo</th><th>Categoria</th><th>Descri&ccedil;&atilde;o</th><th class="col-valor">Valor</th><th>Equipe</th><th>Baia</th><th>Respons&aacute;vel</th><th>Status</th><th>A&ccedil;&otilde;es</th></tr></thead><tbody id="itensBody"></tbody></table></div>
         <div id="itensVazio" class="vazio" style="display:none">Nenhum item encontrado. Cadastre o primeiro na aba "Cadastrar"!</div>
       </div>
     </div>
@@ -325,7 +354,7 @@ body.cargo-atendente .dica-drag{display:none}
           <div class="fld"><label>Produto (nome e n&uacute;mero) *</label><input id="cCodigo" type="text" placeholder="Ex: Notebook 1, Celular 3"></div>
           <div class="fld"><label>Categoria *</label><select id="cCat"></select></div>
           <div class="fld"><label>Descri&ccedil;&atilde;o</label><input id="cDesc" type="text" placeholder="Ex: Notebook Dell i5"></div>
-          <div class="fld"><label>Valor (R$)</label><input id="cValor" type="number" step="0.01" min="0" placeholder="Ex: 2500.00"></div>
+          <div class="fld col-valor"><label>Valor (R$)</label><input id="cValor" type="number" step="0.01" min="0" placeholder="Ex: 2500.00"></div>
           <div class="fld"><label>Equipe</label><select id="cEquipe"></select></div>
           <div class="fld"><label>Pertence a (vendedor, opcional)</label><select id="cVendedor"><option value="">Sem dono / livre</option></select></div>
           <div class="fld"><label>Baia / Local *</label><select id="cBaia"></select></div>
@@ -363,7 +392,7 @@ body.cargo-atendente .dica-drag{display:none}
           <div class="passo-titulo">Clique no bot&atilde;o pra registrar &mdash; pronto, vai salvar no hist&oacute;rico</div>
         </div>
         <div style="margin-top:10px"><button class="btn btn-ouro" onclick="moverItem()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Registrar movimenta&ccedil;&atilde;o</button></div>
-        <div class="note">&#128161; <b>Dica:</b> toda movimenta&ccedil;&atilde;o fica salva pra sempre no <b>Hist&oacute;rico</b>, com data e hora. Voc&ecirc; sempre sabe onde o item esteve e com quem.</div>
+        <div class="note ico-dica"><b>Dica:</b> toda movimenta&ccedil;&atilde;o fica salva pra sempre no <b>Hist&oacute;rico</b>, com data e hora. Voc&ecirc; sempre sabe onde o item esteve e com quem.</div>
       </div>
     </div>
 
@@ -397,7 +426,7 @@ body.cargo-atendente .dica-drag{display:none}
           <div class="fld"><label>Foto (opcional)</label><input id="vFoto" type="file" accept="image/*" style="padding:8px"></div>
         </div>
         <div style="margin-top:18px"><button class="btn btn-ouro" onclick="cadastrarVendedor()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Cadastrar vendedor</button></div>
-        <div class="note">&#128161; Se voc&ecirc; n&atilde;o subir foto agora, fica um avatar com as iniciais. D&aacute; pra trocar depois clicando no l&aacute;pis.</div>
+        <div class="note ico-dica">Se voc&ecirc; n&atilde;o subir foto agora, fica um avatar com as iniciais. D&aacute; pra trocar depois clicando no l&aacute;pis.</div>
       </div>
       <div class="card"><div class="sec">Vendedores cadastrados</div><div class="secsub">use o l&aacute;pis para editar (incluindo foto) &middot; arraste no mapa pra mudar de baia</div>
         <div class="busca-bar"><input id="buscaVend" type="text" placeholder="Buscar por nome..." oninput="renderVendedores()"></div>
@@ -433,9 +462,9 @@ body.cargo-atendente .dica-drag{display:none}
         </div>
         <div style="margin-top:18px"><button class="btn btn-ouro" onclick="cadastrarEmail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Cadastrar login</button></div>
       </div>
-      <div class="card"><div class="sec">Logins cadastrados</div><div class="secsub">clique no olho para ver a senha &middot; l&aacute;pis para editar</div>
-        <div class="busca-bar"><input id="buscaEmail" type="text" placeholder="Buscar por sistema, nome ou login..." oninput="renderEmails()"></div>
-        <div class="tbl-wrap"><table><thead><tr><th>Sistema</th><th>Atendente</th><th>Login</th><th>Senha</th><th>A&ccedil;&otilde;es</th></tr></thead><tbody id="emailBody"></tbody></table></div>
+      <div class="card"><div class="sec">Logins cadastrados</div><div class="secsub">clique no nome para ver todos os logins da pessoa &middot; cada pessoa &eacute; uma ficha</div>
+        <div class="busca-bar"><input id="buscaEmail" type="text" placeholder="Buscar por nome, sistema ou login..." oninput="renderEmails()"></div>
+        <div id="emailBody" class="lg-lista"></div>
         <div id="emailVazio" class="vazio" style="display:none">Nenhum login cadastrado ainda.</div>
         <div class="note"><b>Aten&ccedil;&atilde;o:</b> as senhas ficam salvas no banco para uso interno. Logo vamos adicionar criptografia.</div>
       </div>
@@ -461,9 +490,9 @@ body.cargo-atendente .dica-drag{display:none}
     <div class="pane" id="pane-usuarios">
       <div class="card"><div class="sec">Usu&aacute;rios e cargos</div><div class="secsub">defina quem tem acesso ao sistema e o que cada um pode fazer &middot; apenas administradores veem esta tela</div>
         <div class="cargos-info">
-          <div class="cargo-info"><span class="cargo-badge" style="background:#F2B705">&#128081; Admin</span><span>Faz tudo + gerencia usu&aacute;rios</span></div>
-          <div class="cargo-info"><span class="cargo-badge" style="background:#3498db;color:#fff">&#128737; Supervisor</span><span>Faz tudo, exceto mexer em usu&aacute;rios</span></div>
-          <div class="cargo-info"><span class="cargo-badge" style="background:#95a5a6;color:#fff">&#128100; Atendente</span><span>S&oacute; consulta (Painel, Itens, Mapa, Hist&oacute;rico, Vendedores)</span></div>
+          <div class="cargo-info"><span class="cargo-badge cb-admin"></span><span><b>Administrador</b> &mdash; Faz tudo + gerencia usu&aacute;rios e v&ecirc; valores</span></div>
+          <div class="cargo-info"><span class="cargo-badge cb-super"></span><span><b>Supervisor</b> &mdash; Faz tudo, exceto mexer em usu&aacute;rios e ver valores</span></div>
+          <div class="cargo-info"><span class="cargo-badge cb-atend"></span><span><b>Atendente</b> &mdash; S&oacute; consulta (Painel, Itens, Mapa, Hist&oacute;rico, Vendedores)</span></div>
         </div>
         <div id="usuariosBody" style="margin-top:20px"></div>
         <div class="note" style="margin-top:18px"><b>Pra criar um novo login:</b> por enquanto, voc&ecirc; cria no painel da Supabase (Authentication &rarr; Users &rarr; Add user). Depois, o usu&aacute;rio aparece aqui automaticamente como <b>Atendente</b> &mdash; e voc&ecirc; muda o cargo dele aqui. Em breve vou adicionar o bot&atilde;o "Criar usu&aacute;rio" direto no site.</div>
@@ -488,12 +517,18 @@ var OCUPADO=false;        // evita cliques duplos / ações simultaneas
 var CARREGADO=false;      // sinaliza se os dados ja vieram do banco
 var sb=window.supabase.createClient("https://cclwegauvwbfgjnlqzci.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjbHdlZ2F1dndiZmdqbmxxemNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NzY1NzMsImV4cCI6MjA5NTU1MjU3M30.MITvgreCd0FEJbGSQuggAijNkJ1ZtMVPgX8Rgcu5Gw8",{auth:{persistSession:true,autoRefreshToken:true}});
 
-// definições de cargos e suas permissões
+// definições de cargos e suas permissões (icones via SVG)
 var CARGOS={
-  admin:    {rotulo:"Administrador",cor:"#F2B705",icone:"\u{1F451}"},
-  supervisor:{rotulo:"Supervisor",cor:"#3498db",icone:"\u{1F6E1}"},
-  atendente:{rotulo:"Atendente",cor:"#95a5a6",icone:"\u{1F464}"}
+  admin:    {rotulo:"Administrador",cor:"#F2B705",icone:""},
+  supervisor:{rotulo:"Supervisor",cor:"#3498db",icone:""},
+  atendente:{rotulo:"Atendente",cor:"#95a5a6",icone:""}
 };
+function cargoSvg(cargo,tam,cor){
+  cor=cor||(cargo==="admin"?"#161616":"#fff");
+  if(cargo==="admin")return svgInl(SVG_COROA,tam||14,cor);
+  if(cargo==="supervisor")return svgInl(SVG_ESCUDO,tam||14,cor);
+  return svgInl(SVG_PESSOA,tam||14,cor);
+}
 // abas que cada cargo pode ver (vazio = vê todas)
 var PERM_ABAS={
   admin: null,  // tudo
@@ -504,6 +539,7 @@ function cargoAtual(){return PERFIL?PERFIL.cargo:"atendente";}
 function podeVer(aba){var c=cargoAtual();var perm=PERM_ABAS[c];return perm===null||perm===undefined||perm.indexOf(aba)>=0;}
 function podeEditar(){var c=cargoAtual();return c==="admin"||c==="supervisor";}
 function ehAdmin(){return cargoAtual()==="admin";}
+function podeVerValor(){return ehAdmin();}
 
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 function fmtData(iso){if(!iso)return"";try{var d=new Date(iso);return d.toLocaleDateString("pt-BR")+" "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});}catch(e){return"";}}
@@ -516,13 +552,19 @@ function dlgEscape(s){return String(s||"").replace(/</g,"&lt;").replace(/>/g,"&g
 function dlgBuild(opts){
   // opts: {tipo:'confirm'|'prompt'|'alert', titulo, msg, padrao, icone, btnOk, btnCancelar, perigo, cb}
   var tit=opts.titulo||"Aten\u00e7\u00e3o";
-  var ico=opts.icone||"\u26A0";
+  // svg padrao por tipo (sem emoji)
+  var svgIco;
+  if(opts.svgIcone)svgIco=opts.svgIcone;
+  else if(opts.tipo==="alert")svgIco=svgInl(SVG_INFO,18,"#F2B705");
+  else if(opts.tipo==="prompt")svgIco=svgInl(SVG_LAPIS,18,"#F2B705");
+  else if(opts.perigo)svgIco=svgInl(SVG_ALERTA,18,"#e74c3c");
+  else svgIco=svgInl(SVG_INTERROG,18,"#F2B705");
   var msg=opts.msg||"";
   var temInput=opts.tipo==="prompt";
   var btnOk=opts.btnOk||"Confirmar";
   var btnCanc=opts.btnCancelar||"Cancelar";
   var classeOk="btn-ouro"+(opts.perigo?" btn-perigo":"");
-  var html="<div class='dlg-tit'><span>"+ico+"</span>"+dlgEscape(tit)+"</div>"+
+  var html="<div class='dlg-tit'>"+svgIco+"<span>"+dlgEscape(tit)+"</span></div>"+
     "<div class='dlg-msg'>"+dlgEscape(msg)+"</div>"+
     (temInput?"<input class='dlg-input' id='dlgInput' value='"+dlgEscape(opts.padrao||"")+"' autocomplete='off'>":"")+
     "<div class='dlg-acts'>"+
@@ -544,9 +586,9 @@ function dlgOk(){
   document.onkeydown=null;
   if(cb)cb(val);
 }
-function dlgConfirm(msg,cb,opts){opts=opts||{};dlgBuild({tipo:"confirm",titulo:opts.titulo||"Confirmar",msg:msg,icone:opts.icone||"\u2753",btnOk:opts.btnOk||"Sim, confirmar",btnCancelar:"Cancelar",perigo:opts.perigo,cb:function(v){if(v&&cb)cb();}});}
-function dlgPrompt(msg,padrao,cb,opts){opts=opts||{};dlgBuild({tipo:"prompt",titulo:opts.titulo||"Digite",msg:msg,padrao:padrao,icone:opts.icone||"\u270F\uFE0F",btnOk:"Confirmar",btnCancelar:"Cancelar",cb:function(v){if(v!==null&&v!==undefined&&v!==""&&cb)cb(v);}});}
-function dlgAlert(msg,cb,opts){opts=opts||{};dlgBuild({tipo:"alert",titulo:opts.titulo||"Aviso",msg:msg,icone:opts.icone||"\u2139\uFE0F",btnOk:"Entendi",cb:cb});}
+function dlgConfirm(msg,cb,opts){opts=opts||{};dlgBuild({tipo:"confirm",titulo:opts.titulo||"Confirmar",msg:msg,btnOk:opts.btnOk||"Sim, confirmar",btnCancelar:"Cancelar",perigo:opts.perigo,svgIcone:opts.svgIcone,cb:function(v){if(v&&cb)cb();}});}
+function dlgPrompt(msg,padrao,cb,opts){opts=opts||{};dlgBuild({tipo:"prompt",titulo:opts.titulo||"Digite",msg:msg,padrao:padrao,btnOk:"Confirmar",btnCancelar:"Cancelar",svgIcone:opts.svgIcone,cb:function(v){if(v!==null&&v!==undefined&&v!==""&&cb)cb(v);}});}
+function dlgAlert(msg,cb,opts){opts=opts||{};dlgBuild({tipo:"alert",titulo:opts.titulo||"Aviso",msg:msg,btnOk:"Entendi",svgIcone:opts.svgIcone,cb:cb});}
 // helpers de avatar (foto ou iniciais coloridas)
 function iniciais(nome){if(!nome)return"?";var p=nome.trim().split(/\s+/);return ((p[0]||"")[0]+(p.length>1?(p[p.length-1]||"")[0]:"")).toUpperCase()||"?";}
 function corDoNome(nome){var h=0;for(var i=0;i<(nome||"").length;i++)h=(h*31+nome.charCodeAt(i))&0xffffffff;var hue=Math.abs(h)%360;return "hsl("+hue+",55%,45%)";}
@@ -625,7 +667,7 @@ async function entrarNoApp(){
     var c=document.getElementById("userChip");
     if(c){
       var cg=CARGOS[PERFIL.cargo]||CARGOS.atendente;
-      c.innerHTML=esc(USUARIO.email)+" <span style='background:"+cg.cor+";color:#000;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800;margin-left:6px'>"+cg.icone+" "+cg.rotulo+"</span>";
+      c.innerHTML=esc(USUARIO.email)+" <span style='background:"+cg.cor+";color:"+(PERFIL.cargo==="admin"?"#000":"#fff")+";padding:3px 9px;border-radius:5px;font-size:10px;font-weight:800;margin-left:6px;display:inline-flex;align-items:center;gap:5px'>"+cargoSvg(PERFIL.cargo,12,PERFIL.cargo==="admin"?"#000":"#fff")+" "+cg.rotulo+"</span>";
     }
   }
   aplicarPermissoes();
@@ -717,7 +759,7 @@ function popularSelects(){
 }
 
 // ====== ABAS ======
-var ABAS=["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","ajustes","usuarios"];window.ATIVA="painel";
+var ABAS=["painel","vendedores","baias","cadastrar","itens","mover","historico","estoque","emails","usuarios","ajustes"];window.ATIVA="painel";
 function showTab(id){
   if(PERFIL&&!podeVer(id)){toast("Sem acesso a essa aba");return;}
   window.ATIVA=id;
@@ -772,7 +814,7 @@ function renderMapa(){
         "</div></div>"+
     "</div>"+
     "<div class='mesa-super'>Supervisora</div>"+
-    "<div class='dica-drag'>&#128161; Arraste um vendedor de uma baia pra outra &mdash; os itens dele v\u00e3o junto automaticamente</div>";
+    "<div class='dica-drag ico-dica'>Arraste um vendedor de uma baia pra outra &mdash; os itens dele v\u00e3o junto automaticamente</div>";
 }
 
 // ===== DRAG & DROP de vendedores entre baias =====
@@ -826,16 +868,20 @@ function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();re
 // ===== USUARIOS (cargos) =====
 function renderUsuarios(){
   var el=document.getElementById("usuariosBody");if(!el)return;
+  // popula badges de cargo no topo do pane
+  var cba=document.querySelector(".cb-admin");if(cba)cba.innerHTML=svgInl(SVG_COROA,12,"#161616");
+  var cbs=document.querySelector(".cb-super");if(cbs)cbs.innerHTML=svgInl(SVG_ESCUDO,12,"#fff");
+  var cbt=document.querySelector(".cb-atend");if(cbt)cbt.innerHTML=svgInl(SVG_PESSOA,12,"#fff");
   if(!TODOS_PERFIS.length){el.innerHTML="<div class='lc-vazia'>Nenhum usu\u00e1rio carregado</div>";return;}
   el.innerHTML=TODOS_PERFIS.map(function(p){
     var cg=CARGOS[p.cargo]||CARGOS.atendente;
     var ehEu=PERFIL&&p.id===PERFIL.id;
     var emailUsuario=ehEu?(USUARIO?USUARIO.email:"voc\u00ea"):(p.email||"(email n\u00e3o vis\u00edvel)");
     var nome=p.nome||emailUsuario.split("@")[0];
-    var opts=Object.keys(CARGOS).map(function(k){return "<option value='"+k+"' "+(k===p.cargo?"selected":"")+">"+CARGOS[k].icone+" "+CARGOS[k].rotulo+"</option>";}).join("");
+    var opts=Object.keys(CARGOS).map(function(k){return "<option value='"+k+"' "+(k===p.cargo?"selected":"")+">"+CARGOS[k].rotulo+"</option>";}).join("");
     var disab=ehEu?"disabled title='voc\u00ea n\u00e3o pode mudar seu pr\u00f3prio cargo'":"";
     return "<div class='user-card "+(ehEu?"eu":"")+"'>"+
-      "<div class='ic' style='background:"+cg.cor+";color:"+(p.cargo==="admin"?"#000":"#fff")+"'>"+cg.icone+"</div>"+
+      "<div class='ic' style='background:"+cg.cor+";color:"+(p.cargo==="admin"?"#000":"#fff")+"'>"+cargoSvg(p.cargo,22,p.cargo==="admin"?"#161616":"#fff")+"</div>"+
       "<div class='info'>"+
         "<div class='nome'>"+esc(nome)+(ehEu?"<span class='eu-tag'>VOC\u00ca</span>":"")+"</div>"+
         "<div class='email'>"+esc(emailUsuario)+"</div>"+
@@ -860,7 +906,7 @@ function mudarCargo(id,novoCargo){
       renderUsuarios();
       toast("Cargo atualizado!");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Mudar cargo",icone:CARGOS[novoCargo].icone});
+  },{titulo:"Mudar cargo"});
 }
 
 // ===== VENDEDORES =====
@@ -974,7 +1020,7 @@ function excluirVendedor(id){
       if(tratarErro(r,"Erro ao excluir"))return;
       await carregarTudo();toast("Vendedor exclu\u00eddo");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Excluir vendedor",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, excluir",perigo:true});
+  },{titulo:"Excluir vendedor",btnOk:"Sim, excluir",perigo:true});
 }
 
 // ===== ESTOQUE =====
@@ -1025,13 +1071,13 @@ function movEstoque(id,tipo){
   var e=ESTOQUE.find(function(x){return x.id===id;});if(!e)return;
   var sinal=tipo==="entrada"?"+":"-";
   var titulo=tipo==="entrada"?"Entrada de estoque":"Sa\u00edda de estoque";
-  var ico=tipo==="entrada"?"\u2795":"\u2796";
+  var icoSvg=svgInl(tipo==="entrada"?SVG_PLUS:SVG_MINUS,18,tipo==="entrada"?"#27ae60":"#c0392b");
   dlgPrompt("Quantos "+e.categoria+" ?","1",function(q){
     var qNum=parseInt(q);if(isNaN(qNum)||qNum<=0){toast("Quantidade inv\u00e1lida");return;}
     dlgPrompt("Observa\u00e7\u00e3o (motivo, de onde veio, etc):","",function(obs){
       processarMovEstoque(id,tipo,qNum,obs||"",sinal);
-    },{titulo:"Observa\u00e7\u00e3o",icone:"\uD83D\uDCDD"});
-  },{titulo:titulo,icone:ico});
+    },{titulo:"Observa\u00e7\u00e3o",svgIcone:svgInl(SVG_NOTA,18,"#F2B705")});
+  },{titulo:titulo,svgIcone:icoSvg});
 }
 async function processarMovEstoque(id,tipo,qNum,obs,sinal){
   if(OCUPADO)return;
@@ -1056,7 +1102,7 @@ function excluirEstoque(id){
       if(tratarErro(r,"Erro ao excluir"))return;
       await carregarEstoque();renderEstoque();toast("Removido do estoque");
     }catch(err){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Excluir do estoque",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, excluir",perigo:true});
+  },{titulo:"Excluir do estoque",btnOk:"Sim, excluir",perigo:true});
 }
 
 // ===== AJUSTES (categorias, equipes, backup) =====
@@ -1119,7 +1165,7 @@ function removerCfg(tipo,idx){
       if(!ok){await carregarTudo();return;}
       popularSelects();renderAjustes();toast("Removido");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Remover",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, remover",perigo:true});
+  },{titulo:"Remover",btnOk:"Sim, remover",perigo:true});
 }
 async function addCategoria(){
   if(OCUPADO)return;
@@ -1177,40 +1223,83 @@ async function baixarBackup(){
 var SVG_EYE="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>";
 var SVG_EYEOFF="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'/><line x1='1' y1='1' x2='23' y2='23'/></svg>";
 var SVG_LIXO="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/></svg>";
+// SVGs limpos e profissionais (substituem emojis)
+var SVG_COROA="<svg viewBox='0 0 24 24' fill='currentColor' stroke='currentColor' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 17h18l-1.5-9-4 3-3.5-6-3.5 6-4-3z'/><line x1='3' y1='20' x2='21' y2='20' stroke-width='2.4'/></svg>";
+var SVG_ESCUDO="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z'/><polyline points='9 12 11 14 15 10'/></svg>";
+var SVG_PESSOA="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='4'/><path d='M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8'/></svg>";
+var SVG_DICA="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6'/><path d='M10 22h4'/><path d='M12 2a7 7 0 0 0-4 12.7c.6.6 1 1.4 1 2.3v1h6v-1c0-.9.4-1.7 1-2.3A7 7 0 0 0 12 2z'/></svg>";
+var SVG_ALERTA="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg>";
+var SVG_INTERROG="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg>";
+var SVG_PLUS="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='5' x2='12' y2='19'/><line x1='5' y1='12' x2='19' y2='12'/></svg>";
+var SVG_MINUS="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><line x1='5' y1='12' x2='19' y2='12'/></svg>";
+var SVG_NOTA="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='8' y1='13' x2='16' y2='13'/><line x1='8' y1='17' x2='13' y2='17'/></svg>";
+var SVG_INFO="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='16' x2='12' y2='12'/><line x1='12' y1='8' x2='12.01' y2='8'/></svg>";
+var SVG_MOVE="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='5 9 2 12 5 15'/><polyline points='9 5 12 2 15 5'/><polyline points='15 19 12 22 9 19'/><polyline points='19 9 22 12 19 15'/><line x1='2' y1='12' x2='22' y2='12'/><line x1='12' y1='2' x2='12' y2='22'/></svg>";
+var SVG_NEW="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14'/><path d='M5 12h14'/><circle cx='12' cy='12' r='10'/></svg>";
+// helper pra renderizar svg inline com tamanho/cor customizada
+function svgInl(svg,tam,cor){tam=tam||16;cor=cor||"currentColor";return svg.replace(/<svg /,"<svg style='width:"+tam+"px;height:"+tam+"px;vertical-align:-3px;color:"+cor+"' ");}
 var PONTOS="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
 var senhasVisiveis={};
 var SVG_LAPIS="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 20h9'/><path d='M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z'/></svg>";
 var EDITANDO_EMAIL=null; // id em edição
+var EMAIL_ABERTO=null; // nome da pessoa cujo card está expandido
 function renderEmails(){
   var q=(document.getElementById("buscaEmail").value||"").toLowerCase().trim();
-  var res=EMAILS.filter(function(e){if(!q)return true;return ((e.nome||"")+" "+(e.email||"")+" "+(e.sistema||"")).toLowerCase().indexOf(q)>=0;});
   var body=document.getElementById("emailBody"),vazio=document.getElementById("emailVazio");
-  if(res.length===0){body.innerHTML="";vazio.style.display="block";return;}
+  // agrupa por nome
+  var grupos={};
+  EMAILS.forEach(function(e){
+    var n=e.nome||"(sem nome)";
+    if(!grupos[n])grupos[n]=[];
+    grupos[n].push(e);
+  });
+  // filtra por busca (nome, qualquer login, qualquer sistema)
+  var nomes=Object.keys(grupos).filter(function(n){
+    if(!q)return true;
+    if(n.toLowerCase().indexOf(q)>=0)return true;
+    return grupos[n].some(function(e){return ((e.email||"")+" "+(e.sistema||"")).toLowerCase().indexOf(q)>=0;});
+  }).sort();
+  if(nomes.length===0){body.innerHTML="";vazio.style.display="block";return;}
   vazio.style.display="none";
-  body.innerHTML=res.map(function(e){
-    if(EDITANDO_EMAIL===e.id){
-      return "<tr style='background:#fff8dd'>"+
-        "<td><input id='edSis-"+e.id+"' type='text' value='"+esc(e.sistema||"")+"' style='width:100%;padding:6px 9px;font-size:12.5px'></td>"+
-        "<td><input id='edNom-"+e.id+"' type='text' value='"+esc(e.nome||"")+"' style='width:100%;padding:6px 9px;font-size:12.5px'></td>"+
-        "<td><input id='edEml-"+e.id+"' type='text' value='"+esc(e.email||"")+"' style='width:100%;padding:6px 9px;font-size:12.5px'></td>"+
-        "<td><input id='edSen-"+e.id+"' type='text' value='"+esc(e.senha||"")+"' style='width:100%;padding:6px 9px;font-size:12.5px'></td>"+
-        "<td style='white-space:nowrap'><button class='btn btn-mini btn-ouro' onclick=\"salvarEdicaoEmail('"+e.id+"')\">Salvar</button> "+
-        "<button class='btn btn-mini btn-preto' onclick=\"cancelarEdicaoEmail()\">Cancelar</button></td></tr>";
-    }
-    var vis=senhasVisiveis[e.id];
-    var senhaTxt=e.senha?(vis?esc(e.senha):PONTOS):"<span style='color:#a6a49b;letter-spacing:0'>(sem senha)</span>";
-    var olho=e.senha?"<button class='olho' id='olho-"+e.id+"' onclick=\"verSenha('"+e.id+"')\">"+(vis?SVG_EYE:SVG_EYEOFF)+"</button>":"";
-    return "<tr>"+
-      "<td><span class='cat-tag' style='background:#161616;color:#F2B705'>"+esc(e.sistema||"sem sistema")+"</span></td>"+
-      "<td class='op'>"+esc(e.nome)+"</td>"+
-      "<td>"+esc(e.email)+"</td>"+
-      "<td><span class='senha' id='senha-"+e.id+"'>"+senhaTxt+"</span> "+olho+"</td>"+
-      "<td style='white-space:nowrap'>"+
-        "<button class='del-btn' title='Editar' onclick=\"editarEmail('"+e.id+"')\">"+SVG_LAPIS+"</button>"+
-        "<button class='del-btn' title='Excluir' onclick=\"excluirEmail('"+e.id+"')\">"+SVG_LIXO+"</button>"+
-      "</td></tr>";}).join("");
+  body.innerHTML=nomes.map(function(n){
+    var lst=grupos[n],aberta=(EMAIL_ABERTO===n);
+    // SVG seta pra baixo
+    var seta="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' style='width:18px;height:18px;transition:transform .3s;"+(aberta?"transform:rotate(180deg)":"")+"'><polyline points='6 9 12 15 18 9'/></svg>";
+    var iniciais=(function(){var p=n.trim().split(/\s+/);return ((p[0]||"")[0]+(p.length>1?(p[p.length-1]||"")[0]:"")).toUpperCase()||"?";})();
+    var corHash=(function(){var h=0;for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))&0xffffffff;return "hsl("+(Math.abs(h)%360)+",55%,45%)";})();
+    var header="<div class='lg-pessoa-hdr' onclick=\"toggleEmailPessoa('"+esc(n)+"')\">"+
+      "<div class='lg-avatar' style='background:"+corHash+"'>"+iniciais+"</div>"+
+      "<div class='lg-pessoa-info'><div class='lg-pessoa-nome'>"+esc(n)+"</div><div class='lg-pessoa-meta'>"+lst.length+" login"+(lst.length>1?"s":"")+" cadastrado"+(lst.length>1?"s":"")+"</div></div>"+
+      "<div class='lg-pessoa-seta'>"+seta+"</div>"+
+    "</div>";
+    var linhas=lst.map(function(e){
+      if(EDITANDO_EMAIL===e.id){
+        return "<div class='lg-linha edit'>"+
+          "<input id='edSis-"+e.id+"' type='text' placeholder='Sistema' value='"+esc(e.sistema||"")+"'>"+
+          "<input id='edEml-"+e.id+"' type='text' placeholder='Login' value='"+esc(e.email||"")+"'>"+
+          "<input id='edSen-"+e.id+"' type='text' placeholder='Senha' value='"+esc(e.senha||"")+"'>"+
+          "<input id='edNom-"+e.id+"' type='hidden' value='"+esc(e.nome||"")+"'>"+
+          "<button class='btn btn-mini btn-ouro' onclick=\"salvarEdicaoEmail('"+e.id+"')\">Salvar</button>"+
+          "<button class='btn btn-mini btn-preto' onclick=\"cancelarEdicaoEmail()\">Cancelar</button>"+
+        "</div>";
+      }
+      var vis=senhasVisiveis[e.id];
+      var senhaTxt=e.senha?(vis?esc(e.senha):PONTOS):"<span style='color:#a6a49b;letter-spacing:0'>(sem senha)</span>";
+      var olho=e.senha?"<button class='olho' id='olho-"+e.id+"' onclick=\"verSenha('"+e.id+"')\">"+(vis?SVG_EYE:SVG_EYEOFF)+"</button>":"";
+      return "<div class='lg-linha'>"+
+        "<div class='lg-sis'><span class='cat-tag' style='background:#161616;color:#F2B705'>"+esc(e.sistema||"sem sistema")+"</span></div>"+
+        "<div class='lg-eml'>"+esc(e.email)+"</div>"+
+        "<div class='lg-sen'><span class='senha' id='senha-"+e.id+"'>"+senhaTxt+"</span> "+olho+"</div>"+
+        "<div class='lg-acts'>"+
+          "<button class='del-btn' title='Editar' onclick=\"editarEmail('"+e.id+"')\">"+SVG_LAPIS+"</button>"+
+          "<button class='del-btn' title='Excluir' onclick=\"excluirEmail('"+e.id+"')\">"+SVG_LIXO+"</button>"+
+        "</div></div>";
+    }).join("");
+    return "<div class='lg-pessoa "+(aberta?"aberta":"")+"'>"+header+"<div class='lg-conteudo'>"+linhas+"</div></div>";
+  }).join("");
 }
-function editarEmail(id){EDITANDO_EMAIL=id;renderEmails();}
+function toggleEmailPessoa(nome){EMAIL_ABERTO=(EMAIL_ABERTO===nome?null:nome);renderEmails();}
+function editarEmail(id){var e=EMAILS.find(function(x){return x.id===id;});if(e)EMAIL_ABERTO=e.nome;EDITANDO_EMAIL=id;renderEmails();}
 function cancelarEdicaoEmail(){EDITANDO_EMAIL=null;renderEmails();}
 async function salvarEdicaoEmail(id){
   if(OCUPADO)return;
@@ -1262,7 +1351,7 @@ function excluirEmail(id){
       if(tratarErro(r,"Erro ao excluir"))return;
       await carregarTudo();toast("Login exclu\u00eddo");
     }catch(err){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Excluir login",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, excluir",perigo:true});
+  },{titulo:"Excluir login",btnOk:"Sim, excluir",perigo:true});
 }
 
 function renderPainel(){
@@ -1318,7 +1407,7 @@ function renderItens(){
   body.innerHTML=res.map(function(i){return "<tr>"+
     "<td class='op'>"+esc(i.codigo)+"</td><td><span class='cat-tag'>"+esc(i.categoria)+"</span></td>"+
     "<td>"+esc(i.descricao||"-")+"</td>"+
-    "<td style='white-space:nowrap;font-variant-numeric:tabular-nums'>"+(i.valor!=null&&i.valor!==""?"R$ "+Number(i.valor).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"<span style='color:#a6a49b'>-</span>")+"</td>"+
+    "<td class='col-valor' style='white-space:nowrap;font-variant-numeric:tabular-nums'>"+(i.valor!=null&&i.valor!==""?"R$ "+Number(i.valor).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"<span style='color:#a6a49b'>-</span>")+"</td>"+
     "<td>"+esc(i.equipe||"-")+"</td>"+
     "<td>"+esc(i.baia||"-")+"</td><td>"+esc(i.responsavel||"-")+"</td>"+
     "<td>"+statusTag(i.status)+"</td>"+
@@ -1340,7 +1429,7 @@ function renderHist(){
     if(h.de_status!==h.para_status)partes.push("Status: "+esc(h.de_status||"?")+" &rarr; "+esc(h.para_status));
     if(h.tipo==="cadastro")partes=["Item cadastrado na <b>"+esc(h.para_baia)+"</b>"+(h.para_resp?" com <b>"+esc(h.para_resp)+"</b>":"")];
     return "<div class='hist-item'><div class='hist-dot'></div><div class='hist-corpo'>"+
-      "<div class='hist-tit'>"+(h.tipo==="cadastro"?"&#10133; Cadastro":"&#128260; Movimenta&ccedil;&atilde;o")+" &middot; "+esc(h.codigo)+"</div>"+
+      "<div class='hist-tit'>"+(h.tipo==="cadastro"?svgInl(SVG_PLUS,15,"#27ae60")+" Cadastro":svgInl(SVG_MOVE,15,"#3498db")+" Movimenta&ccedil;&atilde;o")+" &middot; "+esc(h.codigo)+"</div>"+
       "<div class='hist-det'>"+partes.join("<br>")+(h.obs?"<br><i>Obs: "+esc(h.obs)+"</i>":"")+"</div>"+
       "<div class='hist-data'>"+esc(fmtData(h.criado_em))+"</div></div>"+
       "<button class='del-btn' style='align-self:center' title='Excluir registro' onclick=\"excluirHist('"+h.id+"')\">"+SVG_LIXO+"</button></div>";}).join("");
@@ -1354,7 +1443,7 @@ function excluirHist(id){
       if(tratarErro(r,"Erro ao excluir"))return;
       await carregarTudo();toast("Registro exclu\u00eddo");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Excluir do hist\u00f3rico",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, excluir",perigo:true});
+  },{titulo:"Excluir do hist\u00f3rico",btnOk:"Sim, excluir",perigo:true});
 }
 
 function renderBaias(){
@@ -1378,7 +1467,7 @@ function excluirBaia(idx){
       if(!ok){await carregarTudo();return;}
       popularSelects();renderBaias();renderPainel();toast("Baia exclu\u00edda");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Excluir baia",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, excluir",perigo:true});
+  },{titulo:"Excluir baia",btnOk:"Sim, excluir",perigo:true});
 }
 
 // ====== AÇÕES ======
@@ -1454,7 +1543,7 @@ function excluirItem(id){
       if(tratarErro(r,"Erro ao excluir"))return;
       await carregarTudo();toast("Item exclu\u00eddo");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
-  },{titulo:"Excluir item",icone:"\uD83D\uDDD1\uFE0F",btnOk:"Sim, excluir",perigo:true});
+  },{titulo:"Excluir item",btnOk:"Sim, excluir",perigo:true});
 }
 async function addBaia(){
   if(OCUPADO)return;
