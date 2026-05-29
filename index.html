@@ -221,6 +221,7 @@ body.cargo-atendente .col-valor{display:none!important}
 .hist-item:last-child{border-bottom:none}
 .hist-dot{width:10px;height:10px;border-radius:50%;background:#F2B705;margin-top:5px;flex:none;box-shadow:0 0 0 3px #fff8e6}
 .hist-corpo{flex:1}.hist-tit{font-size:13.5px;font-weight:700}.hist-det{font-size:12.5px;color:#6b6a64;margin-top:3px;line-height:1.5}.hist-data{font-size:11px;color:#a6a49b;margin-top:3px}
+.hist-por{font-size:11px;color:#7a7870;margin-top:5px;display:flex;align-items:center;gap:5px;padding:3px 8px;background:#faf9f5;border-radius:6px;width:fit-content}
 .assinatura{text-align:center;font-style:italic;font-size:12.5px;color:#9c9a92;padding:18px 0 6px;letter-spacing:.02em}
 .assinatura b{color:#7a7870;font-weight:600;font-style:italic}
 .loading{text-align:center;padding:50px;color:#9c9a92;font-size:14px}
@@ -480,6 +481,11 @@ body.cargo-atendente .col-valor{display:none!important}
         <div id="listaEquipes" class="lista-config"></div>
         <div class="busca-bar" style="margin-top:14px"><input id="novaEq" type="text" placeholder="Nova equipe (ex: Spartans)"><button class="btn btn-preto" onclick="addEquipe()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar</button></div>
       </div>
+      <div class="card"><div class="sec">Permiss&otilde;es dos atendentes</div><div class="secsub">marque as abas que os atendentes podem ver &middot; Admin/Supervisor sempre veem tudo (exceto Usu&aacute;rios e valores, que s&atilde;o s&oacute; do Admin)</div>
+        <div id="permAtendBody" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:14px"></div>
+        <button class="btn btn-ouro" style="margin-top:14px" onclick="salvarPermAtendente()">Salvar permiss&otilde;es</button>
+        <div class="note" style="margin-top:14px">As mudan&ccedil;as se aplicam quando o atendente fizer login novamente (ou clicar em <b>Atualizar</b> no topo).</div>
+      </div>
       <div class="card"><div class="sec">Backup de seguran&ccedil;a</div><div class="secsub">baixe um arquivo Excel com tudo &mdash; itens, hist&oacute;rico, logins &mdash; pra n&atilde;o perder nada caso algo acontea com o banco</div>
         <button class="btn btn-ouro" onclick="baixarBackup()" style="margin-top:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Baixar backup completo</button>
         <div class="note" style="margin-top:14px">Fa&ccedil;a backup pelo menos <b>1 vez por semana</b>. O plano gr&aacute;tis do Supabase tem limite, ent&atilde;o ter c&oacute;pias salvas no seu computador &eacute; uma seguran&ccedil;a extra.</div>
@@ -536,10 +542,30 @@ var PERM_ABAS={
   atendente: ["painel","itens","historico","baias","vendedores"]  // só consulta
 };
 function cargoAtual(){return PERFIL?PERFIL.cargo:"atendente";}
-function podeVer(aba){var c=cargoAtual();var perm=PERM_ABAS[c];return perm===null||perm===undefined||perm.indexOf(aba)>=0;}
+function equipeUsuario(){return PERFIL?PERFIL.equipe:null;}
+function podeVer(aba){
+  var c=cargoAtual();
+  // permissoes do atendente sao configuraveis via CONFIG.perm_atendente
+  if(c==="atendente"&&CONFIG.perm_atendente)return CONFIG.perm_atendente.indexOf(aba)>=0;
+  var perm=PERM_ABAS[c];
+  return perm===null||perm===undefined||perm.indexOf(aba)>=0;
+}
 function podeEditar(){var c=cargoAtual();return c==="admin"||c==="supervisor";}
 function ehAdmin(){return cargoAtual()==="admin";}
 function podeVerValor(){return ehAdmin();}
+// admin ve tudo, supervisor/atendente só sua equipe (se nao tem equipe, ve tudo da sua)
+function ehMinhaEquipe(equipe){
+  if(ehAdmin())return true;
+  var minha=equipeUsuario();
+  if(!minha)return true;  // sem equipe definida, ve tudo
+  return equipe===minha||!equipe;  // ve sua equipe + itens sem equipe
+}
+function nomeCurto(){
+  if(!PERFIL)return"sistema";
+  return PERFIL.nome||(USUARIO?USUARIO.email.split("@")[0]:"sistema");
+}
+function audit(){return {por_quem:USUARIO?USUARIO.id:null,por_quem_nome:nomeCurto(),por_quem_email:USUARIO?USUARIO.email:null};}
+
 
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 function fmtData(iso){if(!iso)return"";try{var d=new Date(iso);return d.toLocaleDateString("pt-BR")+" "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});}catch(e){return"";}}
@@ -852,7 +878,7 @@ async function dropVend(e){
     await sb.from("vendedores").update({baia_atual:baiaDest}).eq("id",vId);
     await sb.from("itens").update({baia:baiaDest}).eq("vendedor_id",vId);
     // historico
-    await sb.from("historico").insert({tipo:"mover",codigo:"["+v.nome+"]",de_baia:baiaOrigem||"",para_baia:baiaDest,de_resp:"",para_resp:v.nome,de_status:"",para_status:"",obs:ocupante?("trocou de baia com "+ocupante.nome):"movido pelo mapa"});
+    await sb.from("historico").insert({tipo:"mover",codigo:"["+v.nome+"]",de_baia:baiaOrigem||"",para_baia:baiaDest,de_resp:"",para_resp:v.nome,de_status:"",para_status:"",obs:ocupante?("trocou de baia com "+ocupante.nome):"movido pelo mapa",por_quem:audit().por_quem,por_quem_nome:audit().por_quem_nome,por_quem_email:audit().por_quem_email});
     await carregarTudo();
     toast(v.nome+" \u2192 "+baiaDest+(ocupante?" (trocou com "+ocupante.nome+")":""));
   }catch(err){toast("Erro ao mover vendedor");}finally{OCUPADO=false;}
@@ -863,7 +889,30 @@ function focarBaia(nome){
   var idx=CONFIG.baias.indexOf(nome);
   if(idx>=0&&cards[idx]){cards[idx].scrollIntoView({behavior:"smooth",block:"center"});cards[idx].classList.add("destacado");setTimeout(function(){if(cards[idx])cards[idx].classList.remove("destacado");},2400);}
 }
-function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();renderMapa();renderEmails();renderAjustes();renderVendedores();renderEstoque();renderUsuarios();}
+function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();renderMapa();renderEmails();renderAjustes();renderPermAtendente();renderVendedores();renderEstoque();renderUsuarios();}
+
+var ABAS_ROTULOS={painel:"Painel",vendedores:"Vendedores",baias:"Baias",cadastrar:"Cadastrar",itens:"Itens",mover:"Movimentar",historico:"Hist\u00f3rico",estoque:"Estoque",emails:"Logins",usuarios:"Usu\u00e1rios",ajustes:"Ajustes"};
+function renderPermAtendente(){
+  var el=document.getElementById("permAtendBody");if(!el)return;
+  var perm=CONFIG.perm_atendente||["painel","itens","historico","baias","vendedores"];
+  el.innerHTML=ABAS.filter(function(a){return a!=="usuarios"&&a!=="ajustes";}).map(function(a){
+    var ck=perm.indexOf(a)>=0;
+    return "<label style='display:flex;align-items:center;gap:8px;padding:8px 12px;background:#faf9f5;border:1.5px solid #ece9df;border-radius:9px;cursor:pointer;font-size:13px'><input type='checkbox' data-aba='"+a+"' "+(ck?"checked":"")+" style='width:16px;height:16px;cursor:pointer;flex-shrink:0;accent-color:#F2B705'><span>"+ABAS_ROTULOS[a]+"</span></label>";
+  }).join("");
+}
+async function salvarPermAtendente(){
+  if(OCUPADO)return;
+  if(!podeEditar()){toast("Sem permiss\u00e3o");return;}
+  var marcados=[];
+  document.querySelectorAll("#permAtendBody input[type='checkbox']").forEach(function(c){if(c.checked)marcados.push(c.getAttribute("data-aba"));});
+  OCUPADO=true;
+  try{
+    var r=await sb.from("config").upsert({chave:"perm_atendente",valor:marcados});
+    if(tratarErro(r,"Erro ao salvar"))return;
+    CONFIG.perm_atendente=marcados;
+    toast("Permiss\u00f5es salvas!");
+  }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
+}
 
 // ===== USUARIOS (cargos) =====
 function renderUsuarios(){
@@ -872,23 +921,49 @@ function renderUsuarios(){
   var cba=document.querySelector(".cb-admin");if(cba)cba.innerHTML=svgInl(SVG_COROA,12,"#161616");
   var cbs=document.querySelector(".cb-super");if(cbs)cbs.innerHTML=svgInl(SVG_ESCUDO,12,"#fff");
   var cbt=document.querySelector(".cb-atend");if(cbt)cbt.innerHTML=svgInl(SVG_PESSOA,12,"#fff");
-  if(!TODOS_PERFIS.length){el.innerHTML="<div class='lc-vazia'>Nenhum usu\u00e1rio carregado</div>";return;}
-  el.innerHTML=TODOS_PERFIS.map(function(p){
+  // supervisor s\u00f3 v\u00ea perfis da sua equipe (admin v\u00ea todos)
+  var perfisVis=TODOS_PERFIS.filter(function(p){
+    if(ehAdmin())return true;
+    if(!equipeUsuario())return true;
+    return p.equipe===equipeUsuario()||p.id===PERFIL.id;
+  });
+  if(!perfisVis.length){el.innerHTML="<div class='lc-vazia'>Nenhum usu\u00e1rio na sua equipe</div>";return;}
+  el.innerHTML=perfisVis.map(function(p){
     var cg=CARGOS[p.cargo]||CARGOS.atendente;
     var ehEu=PERFIL&&p.id===PERFIL.id;
     var emailUsuario=ehEu?(USUARIO?USUARIO.email:"voc\u00ea"):(p.email||"(email n\u00e3o vis\u00edvel)");
     var nome=p.nome||emailUsuario.split("@")[0];
     var opts=Object.keys(CARGOS).map(function(k){return "<option value='"+k+"' "+(k===p.cargo?"selected":"")+">"+CARGOS[k].rotulo+"</option>";}).join("");
     var disab=ehEu?"disabled title='voc\u00ea n\u00e3o pode mudar seu pr\u00f3prio cargo'":"";
+    var equipesOpts="<option value=''>Todas (admin)</option>"+(CONFIG.equipes||["Athenas"]).map(function(eq){return "<option value='"+esc(eq)+"' "+(eq===p.equipe?"selected":"")+">"+esc(eq)+"</option>";}).join("");
     return "<div class='user-card "+(ehEu?"eu":"")+"'>"+
       "<div class='ic' style='background:"+cg.cor+";color:"+(p.cargo==="admin"?"#000":"#fff")+"'>"+cargoSvg(p.cargo,22,p.cargo==="admin"?"#161616":"#fff")+"</div>"+
       "<div class='info'>"+
         "<div class='nome'>"+esc(nome)+(ehEu?"<span class='eu-tag'>VOC\u00ca</span>":"")+"</div>"+
         "<div class='email'>"+esc(emailUsuario)+"</div>"+
+        "<div style='font-size:11px;color:#a6a49b;margin-top:3px'>Equipe: <b>"+esc(p.equipe||"todas")+"</b></div>"+
       "</div>"+
-      "<select onchange=\"mudarCargo('"+p.id+"',this.value)\" "+disab+">"+opts+"</select>"+
+      "<div style='display:flex;flex-direction:column;gap:4px'>"+
+        "<select title='Cargo' onchange=\"mudarCargo('"+p.id+"',this.value)\" "+disab+">"+opts+"</select>"+
+        "<select title='Equipe' onchange=\"mudarEquipe('"+p.id+"',this.value)\">"+equipesOpts+"</select>"+
+      "</div>"+
     "</div>";
   }).join("");
+}
+function mudarEquipe(id,novaEquipe){
+  if(OCUPADO){renderUsuarios();return;}
+  if(!podeEditar()){toast("Sem permiss\u00e3o");renderUsuarios();return;}
+  var p=TODOS_PERFIS.find(function(x){return x.id===id;});if(!p)return;
+  var rotulo=novaEquipe||"Todas";
+  dlgConfirm("Mudar equipe de "+(p.nome||"este usu\u00e1rio")+" para "+rotulo+"?",async function(){
+    OCUPADO=true;
+    try{
+      var r=await sb.from("perfis").update({equipe:novaEquipe||null}).eq("id",id);
+      if(tratarErro(r,"Erro ao mudar equipe"))return;
+      p.equipe=novaEquipe||null;
+      renderUsuarios();toast("Equipe atualizada!");
+    }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
+  },{titulo:"Mudar equipe"});
 }
 function mudarCargo(id,novoCargo){
   if(OCUPADO){renderUsuarios();return;}
@@ -915,7 +990,10 @@ function renderVendedores(){
   var el=document.getElementById("vendGrid"),vaz=document.getElementById("vendVazio");
   if(!el)return;
   var q=(document.getElementById("buscaVend")?document.getElementById("buscaVend").value:"").toLowerCase().trim();
-  var lista=VENDEDORES.filter(function(v){return !q||((v.nome||"")+" "+(v.equipe||"")).toLowerCase().indexOf(q)>=0;});
+  var lista=VENDEDORES.filter(function(v){
+    if(!ehMinhaEquipe(v.equipe))return false;  // filtro por equipe
+    return !q||((v.nome||"")+" "+(v.equipe||"")).toLowerCase().indexOf(q)>=0;
+  });
   if(lista.length===0){el.innerHTML="";vaz.style.display="block";return;}
   vaz.style.display="none";
   el.innerHTML=lista.map(function(v){
@@ -948,12 +1026,13 @@ async function cadastrarVendedor(){
   var nome=document.getElementById("vNome").value.trim();
   if(!nome){toast("Digite o nome");return;}
   var equipe=document.getElementById("vEquipe").value||"Athenas";
+  if(!ehAdmin()&&equipeUsuario())equipe=equipeUsuario();  // supervisor força sua equipe
   var baia=document.getElementById("vBaia").value||null;
   var fileInput=document.getElementById("vFoto");
   var arquivo=fileInput.files&&fileInput.files[0];
   OCUPADO=true;
   try{
-    var r=await sb.from("vendedores").insert({nome:nome,equipe:equipe,baia_atual:baia}).select().single();
+    var r=await sb.from("vendedores").insert({nome:nome,equipe:equipe,baia_atual:baia,criado_por:USUARIO?USUARIO.id:null,criado_por_nome:nomeCurto()}).select().single();
     if(tratarErro(r,"Erro ao cadastrar"))return;
     var vId=r.data.id;
     if(arquivo){
@@ -1398,6 +1477,7 @@ function renderItens(){
   var q=(document.getElementById("buscaItem").value||"").toLowerCase().trim();
   var fc=document.getElementById("fCat").value, fb=document.getElementById("fBaia").value, fs=document.getElementById("fStatus").value;
   var res=ITENS.filter(function(i){
+    if(!ehMinhaEquipe(i.equipe))return false;  // filtro por equipe
     if(fc&&i.categoria!==fc)return false;if(fb&&i.baia!==fb)return false;if(fs&&i.status!==fs)return false;
     if(q){var blob=((i.codigo||"")+" "+(i.descricao||"")+" "+(i.responsavel||"")+" "+(i.equipe||"")).toLowerCase();if(blob.indexOf(q)<0)return false;}
     return true;});
@@ -1417,8 +1497,15 @@ function renderItens(){
 
 function renderHist(){
   var q=(document.getElementById("buscaHist").value||"").toLowerCase().trim();
-  var res=HIST.filter(function(h){if(!q)return true;
-    var blob=((h.codigo||"")+" "+(h.para_baia||"")+" "+(h.de_baia||"")+" "+(h.para_resp||"")+" "+(h.de_resp||"")).toLowerCase();return blob.indexOf(q)>=0;});
+  var res=HIST.filter(function(h){
+    // filtra por equipe via item vinculado
+    if(!ehAdmin()&&equipeUsuario()&&h.item_id){
+      var it=ITENS.find(function(x){return x.id===h.item_id;});
+      if(it&&!ehMinhaEquipe(it.equipe))return false;
+    }
+    if(!q)return true;
+    var blob=((h.codigo||"")+" "+(h.para_baia||"")+" "+(h.de_baia||"")+" "+(h.para_resp||"")+" "+(h.de_resp||"")+" "+(h.por_quem_nome||"")).toLowerCase();return blob.indexOf(q)>=0;
+  });
   var body=document.getElementById("histBody"),vazio=document.getElementById("histVazio");
   if(res.length===0){body.innerHTML="";vazio.style.display="block";return;}
   vazio.style.display="none";
@@ -1428,9 +1515,11 @@ function renderHist(){
     if((h.de_resp||"")!==(h.para_resp||""))partes.push("Respons&aacute;vel: <b>"+esc(h.de_resp||"ningu\u00e9m")+"</b> &rarr; <b>"+esc(h.para_resp||"ningu\u00e9m")+"</b>");
     if(h.de_status!==h.para_status)partes.push("Status: "+esc(h.de_status||"?")+" &rarr; "+esc(h.para_status));
     if(h.tipo==="cadastro")partes=["Item cadastrado na <b>"+esc(h.para_baia)+"</b>"+(h.para_resp?" com <b>"+esc(h.para_resp)+"</b>":"")];
+    var porQuem=h.por_quem_nome?"<div class='hist-por'>"+svgInl(SVG_PESSOA,12,"#7a7870")+" por <b>"+esc(h.por_quem_nome)+"</b>"+(h.por_quem_email?" <span style='color:#a6a49b'>("+esc(h.por_quem_email)+")</span>":"")+"</div>":"";
     return "<div class='hist-item'><div class='hist-dot'></div><div class='hist-corpo'>"+
       "<div class='hist-tit'>"+(h.tipo==="cadastro"?svgInl(SVG_PLUS,15,"#27ae60")+" Cadastro":svgInl(SVG_MOVE,15,"#3498db")+" Movimenta&ccedil;&atilde;o")+" &middot; "+esc(h.codigo)+"</div>"+
       "<div class='hist-det'>"+partes.join("<br>")+(h.obs?"<br><i>Obs: "+esc(h.obs)+"</i>":"")+"</div>"+
+      porQuem+
       "<div class='hist-data'>"+esc(fmtData(h.criado_em))+"</div></div>"+
       "<button class='del-btn' style='align-self:center' title='Excluir registro' onclick=\"excluirHist('"+h.id+"')\">"+SVG_LIXO+"</button></div>";}).join("");
 }
@@ -1485,18 +1574,23 @@ async function cadastrarItem(){
     var vId=document.getElementById("cVendedor")?document.getElementById("cVendedor").value:"";
     // se escolheu vendedor, usa a baia do vendedor (item segue o dono)
     if(vId){var vDono=VENDEDORES.find(function(x){return x.id===vId;});if(vDono&&vDono.baia_atual)baia=vDono.baia_atual;}
+    // supervisor/atendente s\u00f3 pode cadastrar na pr\u00f3pria equipe (admin escolhe)
+    var equipeFinal=document.getElementById("cEquipe").value;
+    if(!ehAdmin()&&equipeUsuario())equipeFinal=equipeUsuario();
     var it={codigo:cod,categoria:cat,
       descricao:document.getElementById("cDesc").value.trim(),
-      equipe:document.getElementById("cEquipe").value,
+      equipe:equipeFinal,
       valor:valor,
       vendedor_id:vId||null,
       baia:baia,responsavel:document.getElementById("cResp").value.trim(),
-      status:document.getElementById("cStatus").value};
+      status:document.getElementById("cStatus").value,
+      criado_por:USUARIO?USUARIO.id:null,
+      criado_por_nome:nomeCurto()};
     var r=await sb.from("itens").insert(it).select().single();
     if(tratarErro(r,"Erro ao cadastrar"))return;
     var novo=r.data;
-    await sb.from("historico").insert({tipo:"cadastro",item_id:novo.id,codigo:novo.codigo,de_baia:"",para_baia:novo.baia,
-      de_resp:"",para_resp:novo.responsavel,de_status:"",para_status:novo.status,obs:""});
+    await sb.from("historico").insert(Object.assign({tipo:"cadastro",item_id:novo.id,codigo:novo.codigo,de_baia:"",para_baia:novo.baia,
+      de_resp:"",para_resp:novo.responsavel,de_status:"",para_status:novo.status,obs:""},audit()));
     document.getElementById("cCodigo").value="";document.getElementById("cDesc").value="";
     document.getElementById("cResp").value="";document.getElementById("cValor").value="";
     if(document.getElementById("cVendedor"))document.getElementById("cVendedor").value="";
@@ -1524,8 +1618,8 @@ async function moverItem(){
   if(nb===it.baia&&nr===(it.responsavel||"")&&ns===it.status){toast("Nada mudou \u2014 altere baia, respons\u00e1vel ou status");return;}
   OCUPADO=true;
   try{
-    var rh=await sb.from("historico").insert({tipo:"mover",item_id:it.id,codigo:it.codigo,de_baia:it.baia,para_baia:nb,
-      de_resp:it.responsavel||"",para_resp:nr,de_status:it.status,para_status:ns,obs:obs});
+    var rh=await sb.from("historico").insert(Object.assign({tipo:"mover",item_id:it.id,codigo:it.codigo,de_baia:it.baia,para_baia:nb,
+      de_resp:it.responsavel||"",para_resp:nr,de_status:it.status,para_status:ns,obs:obs},audit()));
     if(tratarErro(rh,"Erro ao registrar"))return;
     var ru=await sb.from("itens").update({baia:nb,responsavel:nr,status:ns}).eq("id",it.id);
     if(tratarErro(ru,"Erro ao mover"))return;
