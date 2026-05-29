@@ -222,6 +222,21 @@ body.cargo-atendente .col-valor{display:none!important}
 .hist-dot{width:10px;height:10px;border-radius:50%;background:#F2B705;margin-top:5px;flex:none;box-shadow:0 0 0 3px #fff8e6}
 .hist-corpo{flex:1}.hist-tit{font-size:13.5px;font-weight:700}.hist-det{font-size:12.5px;color:#6b6a64;margin-top:3px;line-height:1.5}.hist-data{font-size:11px;color:#a6a49b;margin-top:3px}
 .hist-por{font-size:11px;color:#7a7870;margin-top:5px;display:flex;align-items:center;gap:5px;padding:3px 8px;background:#faf9f5;border-radius:6px;width:fit-content}
+/* ===== RELATÓRIOS ===== */
+.rel-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.rel-kpi{background:linear-gradient(150deg,#161616,#1f1f1c);color:#fff;border-radius:14px;padding:18px;position:relative;overflow:hidden;border:1.5px solid #2a2a26}
+.rel-kpi::before{content:"";position:absolute;top:-30%;right:-20%;width:50%;height:80%;background:radial-gradient(circle,rgba(242,183,5,.18),transparent 70%);pointer-events:none}
+.rel-kpi .rel-l{font-size:11px;color:#a8a59a;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.rel-kpi .rel-v{font-size:24px;font-weight:800;color:#F2B705;margin-top:6px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.rel-kpi .rel-s{font-size:11.5px;color:#cfcdc4;margin-top:4px}
+.rel-linha{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:11px;background:#faf9f5;border:1px solid #ece9df;margin-bottom:8px;transition:all .2s}
+.rel-linha:hover{border-color:#F2B705;transform:translateX(2px)}
+.rel-linha .rel-nome{flex:1;font-weight:700;font-size:13.5px;color:#1c1c1a}
+.rel-linha .rel-qtd{font-size:11.5px;color:#9c9a92;background:#fff;padding:3px 10px;border-radius:6px;border:1px solid #ece9df;font-variant-numeric:tabular-nums}
+.rel-linha .rel-val{font-size:14px;font-weight:800;color:#1c1c1a;font-variant-numeric:tabular-nums;min-width:130px;text-align:right}
+.rel-linha .rel-bar{flex:1;height:8px;background:#ece9df;border-radius:99px;overflow:hidden;max-width:140px}
+.rel-linha .rel-bar div{height:100%;background:linear-gradient(90deg,#F2B705,#d9a400);border-radius:99px;transition:width .8s cubic-bezier(.34,1.56,.64,1)}
+.rel-vazia{padding:14px;text-align:center;color:#a6a49b;font-style:italic;font-size:13px;background:#faf9f5;border-radius:11px}
 .assinatura{text-align:center;font-style:italic;font-size:12.5px;color:#9c9a92;padding:18px 0 6px;letter-spacing:.02em}
 .assinatura b{color:#7a7870;font-weight:600;font-style:italic}
 .loading{text-align:center;padding:50px;color:#9c9a92;font-size:14px}
@@ -318,6 +333,7 @@ body.cargo-atendente .col-valor{display:none!important}
     <button class="tabbtn" id="tab-historico" onclick="showTab('historico')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>Hist&oacute;rico</span></button>
     <button class="tabbtn" id="tab-estoque" onclick="showTab('estoque')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><span>Estoque</span></button>
     <button class="tabbtn" id="tab-emails" onclick="showTab('emails')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 5L2 7"/></svg></span><span>Logins</span></button>
+    <button class="tabbtn" id="tab-relatorios" onclick="showTab('relatorios')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/></svg></span><span>Relat&oacute;rios</span></button>
     <button class="tabbtn" id="tab-usuarios" onclick="showTab('usuarios')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M22 11l-3-3-3 3"/><path d="M19 8v5"/></svg></span><span>Usu&aacute;rios</span></button>
     <button class="tabbtn" id="tab-ajustes" onclick="showTab('ajustes')"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Ajustes</span></button>
   </div>
@@ -353,7 +369,7 @@ body.cargo-atendente .col-valor{display:none!important}
       <div class="card"><div class="sec">Cadastrar novo item</div><div class="secsub">preencha os dados do equipamento ou celular</div>
         <div class="form-grid">
           <div class="fld"><label>Produto (nome e n&uacute;mero) *</label><input id="cCodigo" type="text" placeholder="Ex: Notebook 1, Celular 3"></div>
-          <div class="fld"><label>Categoria *</label><select id="cCat"></select></div>
+          <div class="fld"><label>Categoria *</label><select id="cCat" onchange="aplicarValorPadrao()"></select></div>
           <div class="fld"><label>Descri&ccedil;&atilde;o</label><input id="cDesc" type="text" placeholder="Ex: Notebook Dell i5"></div>
           <div class="fld col-valor"><label>Valor (R$)</label><input id="cValor" type="number" step="0.01" min="0" placeholder="Ex: 2500.00"></div>
           <div class="fld"><label>Equipe</label><select id="cEquipe"></select></div>
@@ -492,6 +508,25 @@ body.cargo-atendente .col-valor{display:none!important}
       </div>
     </div>
 
+    <!-- RELATORIOS (s\u00f3 admin) -->
+    <div class="pane" id="pane-relatorios">
+      <div class="card"><div class="sec">Vis&atilde;o geral financeira</div><div class="secsub">resumo do patrim&ocirc;nio total &middot; somente administradores veem essa tela</div>
+        <div class="rel-kpis" id="relKpis"></div>
+      </div>
+      <div class="card"><div class="sec">Por equipe</div><div class="secsub">quantidade e valor de itens por equipe</div>
+        <div id="relEquipes"></div>
+      </div>
+      <div class="card"><div class="sec">Por categoria</div><div class="secsub">distribui&ccedil;&atilde;o de itens e valor por categoria</div>
+        <div id="relCategorias"></div>
+      </div>
+      <div class="card"><div class="sec">Top 5 itens mais caros</div><div class="secsub">os equipamentos de maior valor unit&aacute;rio cadastrados</div>
+        <div id="relCaros"></div>
+      </div>
+      <div class="card"><div class="sec">Alertas de estoque baixo</div><div class="secsub">itens do estoque abaixo do m&iacute;nimo definido</div>
+        <div id="relAlertas"></div>
+      </div>
+    </div>
+
     <!-- USUARIOS -->
     <div class="pane" id="pane-usuarios">
       <div class="card"><div class="sec">Usu&aacute;rios e cargos</div><div class="secsub">defina quem tem acesso ao sistema e o que cada um pode fazer &middot; apenas administradores veem esta tela</div>
@@ -538,7 +573,7 @@ function cargoSvg(cargo,tam,cor){
 // abas que cada cargo pode ver (vazio = vê todas)
 var PERM_ABAS={
   admin: null,  // tudo
-  supervisor: ["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","ajustes"],  // tudo menos usuarios
+  supervisor: ["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","ajustes"],  // tudo menos usuarios e relatorios
   atendente: ["painel","itens","historico","baias","vendedores"]  // só consulta
 };
 function cargoAtual(){return PERFIL?PERFIL.cargo:"atendente";}
@@ -733,8 +768,8 @@ async function carregarTudo(){
     await carregarEstoque();
     // carrega lista de todos os perfis (pra aba Usuarios)
     try{var pf=await sb.from("perfis").select("*").order("cargo");TODOS_PERFIS=pf.data||[];}catch(e){TODOS_PERFIS=[];}
-    var novaConf={baias:[],categorias:[],status:[],equipes:[]};
-    (cf.data||[]).forEach(function(r){if(r&&r.chave)novaConf[r.chave]=r.valor||[];});
+    var novaConf={baias:[],categorias:[],status:[],equipes:[],valores_padrao:{}};
+    (cf.data||[]).forEach(function(r){if(r&&r.chave)novaConf[r.chave]=r.valor||(r.chave==="valores_padrao"?{}:[]);});
     if(!novaConf.equipes||!novaConf.equipes.length)novaConf.equipes=["Athenas"];
     // se o banco vier sem config (raro), nao zera os selects
     if(novaConf.baias.length||novaConf.categorias.length||novaConf.status.length)CONFIG=novaConf;
@@ -785,7 +820,7 @@ function popularSelects(){
 }
 
 // ====== ABAS ======
-var ABAS=["painel","vendedores","baias","cadastrar","itens","mover","historico","estoque","emails","usuarios","ajustes"];window.ATIVA="painel";
+var ABAS=["painel","vendedores","baias","cadastrar","itens","mover","historico","estoque","emails","relatorios","usuarios","ajustes"];window.ATIVA="painel";
 function showTab(id){
   if(PERFIL&&!podeVer(id)){toast("Sem acesso a essa aba");return;}
   window.ATIVA=id;
@@ -889,9 +924,59 @@ function focarBaia(nome){
   var idx=CONFIG.baias.indexOf(nome);
   if(idx>=0&&cards[idx]){cards[idx].scrollIntoView({behavior:"smooth",block:"center"});cards[idx].classList.add("destacado");setTimeout(function(){if(cards[idx])cards[idx].classList.remove("destacado");},2400);}
 }
-function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();renderMapa();renderEmails();renderAjustes();renderPermAtendente();renderVendedores();renderEstoque();renderUsuarios();}
+function renderTudo(){renderPainel();renderItens();renderHist();renderBaias();renderMapa();renderEmails();renderAjustes();renderPermAtendente();renderVendedores();renderEstoque();renderUsuarios();renderRelatorios();}
 
-var ABAS_ROTULOS={painel:"Painel",vendedores:"Vendedores",baias:"Baias",cadastrar:"Cadastrar",itens:"Itens",mover:"Movimentar",historico:"Hist\u00f3rico",estoque:"Estoque",emails:"Logins",usuarios:"Usu\u00e1rios",ajustes:"Ajustes"};
+// ===== RELATORIOS (somente admin) =====
+function brl(v){return "R$ "+(Number(v)||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function renderRelatorios(){
+  if(!ehAdmin())return;
+  var elKpi=document.getElementById("relKpis");if(!elKpi)return;
+  // KPIs
+  var totItens=ITENS.length;
+  var valorTotal=ITENS.reduce(function(s,i){return s+(Number(i.valor)||0);},0);
+  var comValor=ITENS.filter(function(i){return i.valor!=null&&i.valor!=="";}).length;
+  var maior=ITENS.reduce(function(a,b){return (Number(b.valor)||0)>(Number(a.valor)||0)?b:a;},{valor:0,codigo:"-"});
+  var equipesAtivas=Object.keys(ITENS.reduce(function(o,i){if(i.equipe)o[i.equipe]=1;return o;},{}));
+  elKpi.innerHTML=[
+    {l:"Total de itens",v:totItens,s:comValor+" com valor cadastrado"},
+    {l:"Valor total em ativo",v:brl(valorTotal),s:"soma dos itens com valor"},
+    {l:"Item mais caro",v:maior.codigo||"-",s:maior.valor?brl(maior.valor):"sem valor"},
+    {l:"Equipes ativas",v:equipesAtivas.length,s:equipesAtivas.join(", ")||"nenhuma"}
+  ].map(function(k){return "<div class='rel-kpi'><div class='rel-l'>"+k.l+"</div><div class='rel-v'>"+esc(String(k.v))+"</div><div class='rel-s'>"+esc(k.s)+"</div></div>";}).join("");
+  // Por equipe
+  var porEq={};
+  ITENS.forEach(function(i){var e=i.equipe||"(sem equipe)";if(!porEq[e])porEq[e]={q:0,v:0};porEq[e].q++;porEq[e].v+=(Number(i.valor)||0);});
+  var maxEq=Math.max.apply(null,Object.values(porEq).map(function(x){return x.v;}).concat([1]));
+  var elEq=document.getElementById("relEquipes");
+  var keysEq=Object.keys(porEq).sort(function(a,b){return porEq[b].v-porEq[a].v;});
+  elEq.innerHTML=keysEq.length?keysEq.map(function(e){var d=porEq[e],pct=d.v/maxEq*100;
+    return "<div class='rel-linha'><div class='rel-nome'>"+esc(e)+"</div><div class='rel-qtd'>"+d.q+" item"+(d.q>1?"s":"")+"</div><div class='rel-bar'><div style='width:"+pct+"%'></div></div><div class='rel-val'>"+brl(d.v)+"</div></div>";
+  }).join(""):"<div class='rel-vazia'>Nenhum item cadastrado ainda</div>";
+  // Por categoria
+  var porCat={};
+  ITENS.forEach(function(i){var c=i.categoria||"(sem categoria)";if(!porCat[c])porCat[c]={q:0,v:0};porCat[c].q++;porCat[c].v+=(Number(i.valor)||0);});
+  var maxCat=Math.max.apply(null,Object.values(porCat).map(function(x){return x.v;}).concat([1]));
+  var elCat=document.getElementById("relCategorias");
+  var keysCat=Object.keys(porCat).sort(function(a,b){return porCat[b].v-porCat[a].v;});
+  elCat.innerHTML=keysCat.length?keysCat.map(function(c){var d=porCat[c],pct=d.v/maxCat*100;
+    return "<div class='rel-linha'><div class='rel-nome'>"+esc(c)+"</div><div class='rel-qtd'>"+d.q+"</div><div class='rel-bar'><div style='width:"+pct+"%'></div></div><div class='rel-val'>"+brl(d.v)+"</div></div>";
+  }).join(""):"<div class='rel-vazia'>Nenhum item cadastrado ainda</div>";
+  // Top 5 mais caros
+  var caros=ITENS.filter(function(i){return Number(i.valor)>0;}).sort(function(a,b){return (Number(b.valor)||0)-(Number(a.valor)||0);}).slice(0,5);
+  var elCaros=document.getElementById("relCaros");
+  elCaros.innerHTML=caros.length?caros.map(function(i,idx){
+    return "<div class='rel-linha'><div style='font-size:18px;font-weight:800;color:#F2B705;width:24px'>"+(idx+1)+"</div><div class='rel-nome'>"+esc(i.codigo)+" <span style='font-weight:400;color:#9c9a92;font-size:12px'>("+esc(i.categoria)+(i.equipe?" \u2022 "+esc(i.equipe):"")+")</span></div><div class='rel-val'>"+brl(i.valor)+"</div></div>";
+  }).join(""):"<div class='rel-vazia'>Nenhum item com valor cadastrado</div>";
+  // Alertas de estoque
+  var alertas=(typeof ESTOQUE!=="undefined"?ESTOQUE:[]).filter(function(e){return e.minimo>0&&e.quantidade<=e.minimo;});
+  var elAl=document.getElementById("relAlertas");
+  elAl.innerHTML=alertas.length?alertas.map(function(e){
+    var critico=e.quantidade===0;
+    return "<div class='rel-linha' style='background:"+(critico?"#fdecea":"#fff7e6")+";border-color:"+(critico?"#c0392b":"#e67e22")+"'><div class='rel-nome'>"+esc(e.categoria)+"</div><div class='rel-qtd' style='background:"+(critico?"#c0392b":"#e67e22")+";color:#fff;border:none;font-weight:700'>"+(critico?"ZERADO":e.quantidade+" / m\u00edn "+e.minimo)+"</div></div>";
+  }).join(""):"<div class='rel-vazia' style='color:#27ae60'>\u2713 Tudo em ordem &mdash; nenhum estoque baixo</div>";
+}
+
+var ABAS_ROTULOS={painel:"Painel",vendedores:"Vendedores",baias:"Baias",cadastrar:"Cadastrar",itens:"Itens",mover:"Movimentar",historico:"Hist\u00f3rico",estoque:"Estoque",emails:"Logins",relatorios:"Relat\u00f3rios",usuarios:"Usu\u00e1rios",ajustes:"Ajustes"};
 function renderPermAtendente(){
   var el=document.getElementById("permAtendBody");if(!el)return;
   var perm=CONFIG.perm_atendente||["painel","itens","historico","baias","vendedores"];
@@ -1198,8 +1283,15 @@ function renderAjustes(){
           "<button class='btn btn-mini btn-ouro' onclick='salvarEdCfg()'>Salvar</button>"+
           "<button class='btn btn-mini btn-preto' onclick='cancelarEdCfg()'>Cancelar</button></div>";
       }
+      // valor padrao s\u00f3 aparece para categorias e somente admin pode ver/editar
+      var valorBox="";
+      if(tipo==="cat"&&ehAdmin()){
+        var valPad=(CONFIG.valores_padrao&&CONFIG.valores_padrao[x])||"";
+        valorBox="<input type='number' step='0.01' min='0' value='"+esc(String(valPad))+"' placeholder='valor padr\u00e3o R$' onblur=\"salvarValorPadrao('"+esc(x)+"',this.value)\" style='width:120px;padding:6px 9px;font-size:12px' title='Valor padr\u00e3o (R$) - usado ao cadastrar item desta categoria'>";
+      }
       return "<div class='lc-item'>"+
         "<span class='lc-nome'>"+esc(x)+"</span>"+
+        valorBox+
         "<button class='del-btn' title='Editar' onclick=\"editarCfg('"+tipo+"',"+i+")\">"+SVG_LAPIS+"</button>"+
         "<button class='del-btn' title='Remover' onclick=\"removerCfg('"+tipo+"',"+i+")\">"+SVG_LIXO+"</button></div>";
     }).join("");
@@ -1210,6 +1302,27 @@ function renderAjustes(){
 }
 function editarCfg(tipo,idx){EDITANDO_CFG={tipo:tipo,idx:idx};renderAjustes();}
 function cancelarEdCfg(){EDITANDO_CFG=null;renderAjustes();}
+async function salvarValorPadrao(categoria,valor){
+  if(!ehAdmin())return;
+  var num=valor===""?null:parseFloat(valor);
+  if(num!==null&&(isNaN(num)||num<0)){toast("Valor inv\u00e1lido");return;}
+  CONFIG.valores_padrao=CONFIG.valores_padrao||{};
+  if(num===null)delete CONFIG.valores_padrao[categoria];
+  else CONFIG.valores_padrao[categoria]=num;
+  try{
+    var r=await sb.from("config").upsert({chave:"valores_padrao",valor:CONFIG.valores_padrao});
+    if(tratarErro(r,"Erro ao salvar valor padr\u00e3o"))return;
+    toast(num===null?"Valor padr\u00e3o removido":"Valor padr\u00e3o: "+brl(num));
+  }catch(e){toast("Erro inesperado");}
+}
+// Quando seleciona categoria no cadastro, preenche valor automaticamente
+function aplicarValorPadrao(){
+  var cat=document.getElementById("cCat").value;
+  var inp=document.getElementById("cValor");
+  if(!inp||!cat)return;
+  var vp=(CONFIG.valores_padrao||{})[cat];
+  if(vp!=null&&!inp.value){inp.value=vp;}
+}
 async function salvarEdCfg(){
   if(OCUPADO||!EDITANDO_CFG)return;
   var inp=document.getElementById("edCfg");if(!inp)return;
