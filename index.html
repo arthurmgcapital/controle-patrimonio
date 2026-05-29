@@ -564,14 +564,15 @@ body.cargo-atendente .col-valor{display:none!important}
 
     <!-- USUARIOS -->
     <div class="pane" id="pane-usuarios">
-      <div class="card"><div class="sec">Usu&aacute;rios e cargos</div><div class="secsub">defina quem tem acesso ao sistema e o que cada um pode fazer &middot; apenas administradores veem esta tela</div>
+      <div class="card"><div class="sec">Usu&aacute;rios e cargos</div><div class="secsub">defina quem tem acesso ao sistema e o que cada um pode fazer</div>
         <div class="cargos-info">
           <div class="cargo-info"><span class="cargo-badge cb-admin"></span><span><b>Administrador</b> &mdash; Faz tudo + gerencia usu&aacute;rios e v&ecirc; valores</span></div>
-          <div class="cargo-info"><span class="cargo-badge cb-super"></span><span><b>Supervisor</b> &mdash; Faz tudo, exceto mexer em usu&aacute;rios e ver valores</span></div>
+          <div class="cargo-info"><span class="cargo-badge cb-super"></span><span><b>Supervisor</b> &mdash; Faz tudo, exceto mexer em usu&aacute;rios, ver valores e relat&oacute;rios</span></div>
           <div class="cargo-info"><span class="cargo-badge cb-atend"></span><span><b>Atendente</b> &mdash; S&oacute; consulta (Painel, Itens, Mapa, Hist&oacute;rico, Vendedores)</span></div>
         </div>
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn btn-ouro" onclick="abrirCriarUsuario()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Criar novo usu&aacute;rio</button></div>
         <div id="usuariosBody" style="margin-top:20px"></div>
-        <div class="note" style="margin-top:18px"><b>Pra criar um novo login:</b> por enquanto, voc&ecirc; cria no painel da Supabase (Authentication &rarr; Users &rarr; Add user). Depois, o usu&aacute;rio aparece aqui automaticamente como <b>Atendente</b> &mdash; e voc&ecirc; muda o cargo dele aqui. Em breve vou adicionar o bot&atilde;o "Criar usu&aacute;rio" direto no site.</div>
+        <div class="note ico-dica" style="margin-top:18px"><b>Como funciona:</b> ao clicar em "Criar novo usu&aacute;rio", voc&ecirc; define email, senha e cargo. O novo login &eacute; ativado na hora &mdash; n&atilde;o precisa mais entrar no painel da Supabase.</div>
       </div>
     </div>
 
@@ -608,7 +609,7 @@ function cargoSvg(cargo,tam,cor){
 // abas que cada cargo pode ver (vazio = vê todas)
 var PERM_ABAS={
   admin: null,  // tudo
-  supervisor: ["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","auditoria","ajustes"],  // tudo menos usuarios e relatorios
+  supervisor: ["painel","itens","cadastrar","mover","historico","baias","vendedores","estoque","emails","auditoria","usuarios","ajustes"],  // tudo menos relatorios
   atendente: ["painel","itens","historico","baias","vendedores"]  // só consulta
 };
 function cargoAtual(){return PERFIL?PERFIL.cargo:"atendente";}
@@ -1229,6 +1230,57 @@ function mudarEquipe(id,novaEquipe){
       renderUsuarios();toast("Equipe atualizada!");
     }catch(e){toast("Erro inesperado");}finally{OCUPADO=false;}
   },{titulo:"Mudar equipe"});
+}
+
+// ===== CRIAR NOVO USUARIO (chama Edge Function) =====
+function abrirCriarUsuario(){
+  if(!podeEditar()){toast("Sem permiss\u00e3o");return;}
+  var equipesOpts=(CONFIG.equipes||["Athenas"]).map(function(eq){return "<option value='"+esc(eq)+"' "+(eq===equipeUsuario()?"selected":"")+">"+esc(eq)+"</option>";}).join("");
+  var cargoOpts="";
+  // supervisor s\u00f3 pode criar atendente
+  if(ehAdmin()){
+    cargoOpts="<option value='atendente'>Atendente</option><option value='supervisor'>Supervisor</option><option value='admin'>Administrador</option>";
+  }else{
+    cargoOpts="<option value='atendente'>Atendente</option>";
+  }
+  var html="<div style='background:linear-gradient(160deg,#1c1c1a,#0f0f0e);border:2px solid #F2B705;border-radius:14px;padding:24px;max-width:480px;width:92%;color:#fff;box-shadow:0 22px 60px rgba(0,0,0,.5)'>"+
+    "<h3 style='margin:0 0 16px;color:#F2B705;display:flex;align-items:center;gap:8px'>"+svgInl(SVG_PESSOA,20,"#F2B705")+"Criar novo usu\u00e1rio</h3>"+
+    "<div class='fld' style='margin-bottom:10px'><label style='color:#fff'>Nome completo *</label><input id='cuNome' type='text' placeholder='Ex: Maria Silva' style='width:100%;background:#fff;color:#000'></div>"+
+    "<div class='fld' style='margin-bottom:10px'><label style='color:#fff'>Email (login) *</label><input id='cuEmail' type='email' placeholder='maria@mgcapital.com' style='width:100%;background:#fff;color:#000'></div>"+
+    "<div class='fld' style='margin-bottom:10px'><label style='color:#fff'>Senha provis\u00f3ria * <span style='font-size:11px;color:#a8a59a;font-weight:400'>(m\u00ednimo 6 caracteres)</span></label><input id='cuSenha' type='text' placeholder='Ex: Mgcapital2026@' style='width:100%;background:#fff;color:#000'></div>"+
+    "<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'>"+
+      "<div class='fld'><label style='color:#fff'>Cargo</label><select id='cuCargo' style='width:100%;background:#fff;color:#000'>"+cargoOpts+"</select></div>"+
+      "<div class='fld'><label style='color:#fff'>Equipe</label><select id='cuEquipe' style='width:100%;background:#fff;color:#000'><option value=''>(sem equipe)</option>"+equipesOpts+"</select></div>"+
+    "</div>"+
+    "<div style='font-size:12px;color:#cfcdc4;margin:14px 0;padding:10px;background:rgba(242,183,5,.1);border-left:3px solid #F2B705;border-radius:4px'>O usu\u00e1rio j\u00e1 pode entrar na hora com esses dados. Anote a senha pra entregar pra ele.</div>"+
+    "<div style='display:flex;gap:8px;justify-content:flex-end'><button class='btn btn-preto' style='background:#444' onclick='fecharEditVend()'>Cancelar</button><button class='btn btn-ouro' onclick='criarUsuarioViaEdge()'>Criar usu\u00e1rio</button></div>"+
+  "</div>";
+  abrirModal(html);
+}
+async function criarUsuarioViaEdge(){
+  if(OCUPADO)return;
+  var nome=document.getElementById("cuNome").value.trim();
+  var email=document.getElementById("cuEmail").value.trim();
+  var senha=document.getElementById("cuSenha").value;
+  var cargo=document.getElementById("cuCargo").value;
+  var equipe=document.getElementById("cuEquipe").value;
+  if(!nome){toast("Digite o nome");return;}
+  if(!email||email.indexOf("@")<0){toast("Email inv\u00e1lido");return;}
+  if(!senha||senha.length<6){toast("Senha precisa ter pelo menos 6 caracteres");return;}
+  OCUPADO=true;
+  try{
+    var r=await sb.functions.invoke("criar-usuario",{body:{nome:nome,email:email,senha:senha,cargo:cargo,equipe:equipe||null}});
+    if(r.error){
+      var msg=r.error.message||"";
+      // tenta pegar a mensagem do JSON de erro retornado pela function
+      try{if(r.error.context&&r.error.context.body){var j=JSON.parse(r.error.context.body);if(j.error)msg=j.error;}}catch(e){}
+      toast("Erro: "+msg.slice(0,100));return;
+    }
+    if(r.data&&r.data.error){toast("Erro: "+r.data.error);return;}
+    fecharEditVend();
+    await carregarTudo();renderUsuarios();
+    toast("Usu\u00e1rio "+nome+" criado!");
+  }catch(e){toast("Erro inesperado: "+String(e.message||e).slice(0,80));}finally{OCUPADO=false;}
 }
 function mudarCargo(id,novoCargo){
   if(OCUPADO){renderUsuarios();return;}
